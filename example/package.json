@@ -1,0 +1,16 @@
+{
+    "name": "khqr-sdk-example",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "start": "ts-node src/index.ts"
+    },
+    "dependencies": {
+        "khqr-sdk": "link:../"
+    },
+    "devDependencies": {
+        "typescript": "^5.9.2",
+        "ts-node": "^10.9.1",
+        "@types/node": "^24.5.2"
+    }
+}
