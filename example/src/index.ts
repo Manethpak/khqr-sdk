@@ -1,3 +1,5 @@
-import { VERSION } from 'khqr-sdk'
+import { createKhqr } from 'khqr-sdk'
 
-console.log('KHQR SDK Version:', VERSION)
+const khqr = createKhqr({
+  baseURL: 'https://api.bakong.io',
+})

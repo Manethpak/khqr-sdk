@@ -1,6 +1,11 @@
 import { createSchema } from '@better-fetch/fetch'
-import { z } from 'zod'
-import { baseResponse } from '../constant'
+import { string, z } from 'zod'
+import {
+  baseResponse,
+  baseTransaction,
+  baseTransactionWithStatus,
+  currency,
+} from './constant'
 
 export const $schema = createSchema(
   {
@@ -14,9 +19,11 @@ export const $schema = createSchema(
           .max(30, 'email is too long'),
       }),
       output: baseResponse.extend({
-        data: z.object({
-          token: z.string().min(1, 'token is required'),
-        }),
+        data: z
+          .object({
+            token: z.string().min(1, 'token is required'),
+          })
+          .nullable(),
       }),
     },
 
@@ -32,16 +39,17 @@ export const $schema = createSchema(
           appName: z.string().min(1, 'appName is required'),
           /** Deeplink URL for opening your app after payment is completed */
           appDeepLinkCallback: z
-            .string()
             .url()
             .min(1, 'appDeepLinkCallback is required'),
         }),
       }),
       output: baseResponse.extend({
-        data: z.object({
-          /** Generated short links will be different every time api is called and also depend on which api url is being used */
-          shortLink: z.string(),
-        }),
+        data: z
+          .object({
+            /** Generated short links will be different every time api is called and also depend on which api url is being used */
+            shortLink: z.string(),
+          })
+          .nullable(),
       }),
     },
 
@@ -52,20 +60,121 @@ export const $schema = createSchema(
         md5: z.string().min(1, 'md5 is required'),
       }),
       output: baseResponse.extend({
-        data: z.object({
-          hash: z.string(),
-          fromAccountId: z.string(),
-          toAccoundId: z.string(),
-          currency: z.string(),
-          amount: z.number(),
-          description: z.string(),
-          createdDateMs: z.string(),
-          acknowledgedDateMs: z.enum(['PENDING', 'COMPLETED', 'FAILED']),
-        }),
+        data: baseTransaction.nullable(),
       }),
     },
-    '/v1/check_transaction_by_hash': {},
-    '/v1/check_transaction_by_short_hash': {},
+
+    '/v1/check_transaction_by_hash': {
+      method: 'post',
+      input: z.object({
+        /** 64 chars transaction hash */
+        hash: z
+          .string()
+          .min(1, 'hash is required')
+          .max(255, 'hash is too long'),
+      }),
+      output: baseResponse.extend({
+        data: baseTransactionWithStatus.nullable(),
+      }),
+    },
+
+    '/v1/check_transaction_by_short_hash': {
+      method: 'post',
+      input: z.object({
+        /** 8 char transaction hash */
+        hash: z.string().min(1, 'hash is required').max(8, 'hash is too long'),
+        amount: z.number(),
+        currency: currency,
+      }),
+      output: baseResponse.extend({
+        data: baseTransactionWithStatus.nullable(),
+      }),
+    },
+
+    '/v1/check_bakong_account': {
+      method: 'post',
+      input: z.object({
+        /** Bakong account id */
+        accountId: z.string().min(1, 'accountId is required'),
+      }),
+      output: baseResponse.extend({
+        /**
+         * data - Will always be `null`.
+         * @see responseCode - `0` if account exists, `1` if account does not exist.
+         */
+        data: z.null(),
+      }),
+    },
+
+    '/v1/check_transaction_by_instruction_ref': {
+      method: 'post',
+      input: z.object({
+        /** Instruction reference */
+        instructionRef: z
+          .string()
+          .min(1, 'instructionRef is required')
+          .max(35, 'instructionRef is too long'),
+      }),
+      output: baseResponse.extend({
+        data: baseTransactionWithStatus.nullable(),
+      }),
+    },
+
+    '/v1/check_transaction_by_external_ref': {
+      method: 'post',
+      input: z.object({
+        /** External reference (ID) */
+        externalRef: z
+          .string()
+          .min(1, 'externalRef is required')
+          .max(35, 'externalRef is too long'),
+      }),
+      output: baseResponse.extend({
+        data: baseTransactionWithStatus.nullable(),
+      }),
+    },
+
+    '/v1/check_transaction_by_md5_list': {
+      method: 'post',
+      input:
+        /** MD5 hashed from KHQR string */
+        z.array(z.string()).max(50, 'max array length is 50'),
+      output: baseResponse.extend({
+        data: z.array(
+          z.object({
+            md5: z.string(),
+            status: z.union([
+              z.literal('SUCCESS'),
+              z.literal('NOT_FOUND'),
+              z.literal('STATIC_QR'),
+            ]),
+            message: string(),
+            data: baseTransaction.nullable(),
+          })
+        ),
+      }),
+    },
+
+    '/v1/check_transaction_by_hash_list': {
+      method: 'post',
+      input:
+        /** list of 64 chars transaction hash */
+        z.array(z.string()).max(50, 'max array length is 50'),
+      output: baseResponse.extend({
+        data: z.array(
+          z.object({
+            hash: z.string(),
+            status: z.union([
+              z.literal('SUCCESS'),
+              z.literal('NOT_FOUND'),
+              z.literal('FAILED'),
+            ]),
+            message: string(),
+            data: baseTransactionWithStatus.nullable(),
+          })
+        ),
+      }),
+    },
   },
   {
     strict: true,

@@ -1,13 +1,17 @@
 {
   "name": "khqr-sdk",
   "version": "1.0.0",
-  "author": "",
-  "description": "",
+  "author": "manethpak <manethpak.dev@gmail.com>",
+  "description": "Typescript KHQR SDK for Bakong API payment",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manethpak/khqr-sdk.git"
+  },
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf dist",
@@ -27,9 +31,11 @@
   "packageManager": "pnpm@10.13.1",
   "dependencies": {
     "@better-fetch/fetch": "^1.1.18",
+    "bakong-khqr": "^1.0.20",
     "zod": "^4.1.11"
   },
   "devDependencies": {
+    "@types/bakong-khqr": "^1.0.1",
     "@types/node": "^24.5.2",
     "@typescript-eslint/eslint-plugin": "^8.44.1",
     "@typescript-eslint/parser": "^8.44.1",
