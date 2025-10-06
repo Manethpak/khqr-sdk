@@ -1,8 +1,3 @@
-/**
- * KHQR Constants - Essential values only
- */
-
-// EMV constants
 export * from './emv'
 
 /**

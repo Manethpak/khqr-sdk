@@ -10,6 +10,8 @@ export * from './types'
 
 export * from './constants'
 
+export * from './helper'
+
 // TODO: Export main KHQR class implementation
 // export { BakongKHQR } from './BakongKHQR';
 

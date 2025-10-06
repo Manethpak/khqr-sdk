@@ -1,7 +1,3 @@
-/**
- * Simplified KHQR TypeScript types
- */
-
 export * from './core.type'
 
 export * from './constant.type'

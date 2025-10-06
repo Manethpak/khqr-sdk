@@ -94,27 +94,3 @@ export interface DecodedKHQRData {
   }
   crc?: string
 }
-
-/**
- * Simple validation result
- */
-export interface ValidationResult {
-  isValid: boolean
-  errors?: string[]
-}
-
-/**
- * Account verification result - Simple
- */
-export interface AccountVerificationResult {
-  exists: boolean
-  accountId: string
-}
-
-/**
- * Deep link generation result - Simple
- */
-export interface DeepLinkResult {
-  shortLink: string
-  originalQR: string
-}
