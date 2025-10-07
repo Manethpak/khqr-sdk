@@ -1,16 +1,21 @@
 {
-    "name": "khqr-sdk-example",
-    "version": "1.0.0",
-    "private": true,
-    "scripts": {
-        "start": "ts-node src/index.ts"
-    },
-    "dependencies": {
-        "khqr-sdk": "link:../"
-    },
-    "devDependencies": {
-        "typescript": "^5.9.2",
-        "ts-node": "^10.9.1",
-        "@types/node": "^24.5.2"
-    }
+  "name": "example",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.19.5",
+    "@hono/zod-validator": "^0.7.3",
+    "hono": "^4.9.10",
+    "khqr-sdk": "link:../",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "tsx": "^4.7.1",
+    "typescript": "^5.8.3"
+  }
 }
