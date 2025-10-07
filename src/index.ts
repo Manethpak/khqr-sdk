@@ -30,14 +30,15 @@ import { qr } from './qr'
  * }
  * ```
  */
-export const createKhqr = (fetchOption: CreateFetchOption) => {
+export const createKHQR = (fetchOption: CreateFetchOption) => {
   return {
-    $fetch: createFetch({ schema: $schema, ...fetchOption }),
-    /** For extending the schema */
+    $fetch: createFetch({ ...fetchOption, schema: $schema }),
     $schema,
     qr,
   }
 }
 
-export type { Result } from './qr'
-export { KHQRError, ERROR_CODES, error, success, failed, wrap } from './qr'
+const khqr = createKHQR({
+  baseURL: 'https://api-bakong.nbc.gov.kh',
+  schema: $schema,
+})
