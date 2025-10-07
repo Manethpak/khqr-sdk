@@ -6,11 +6,25 @@
  * QR Code specification for Cambodia's Bakong payment system.
  */
 
-export * from './types'
+import { generateKHQR } from './core/generate'
+import { decodeKHQR } from './core/decode'
+import { verifyKHQRString } from './core/verify-string'
+import { validators } from './helper/validator'
 
-export * from './constants'
+export type { Result } from './helper/result'
+export { success, failed, wrap } from './helper/result'
+export { KHQRError, ERROR_CODES, error } from './helper/errors'
+export type { VerifyStringResult } from './core/verify-string'
 
-export * from './helper'
+// Main KHQR generation function
+export const qr = {
+  generateKHQR,
+  decodeKHQR,
+  verifyKHQRString,
+  validators,
+}
+
+qr.validators.amount
 
 // TODO: Export main KHQR class implementation
 // export { BakongKHQR } from './BakongKHQR';
@@ -20,11 +34,14 @@ export * from './helper'
  *
  * ```typescript
  * // Generate QR codes
- * function generateIndividual(info: IndividualInfo): QRResult | KHQRError
- * function generateMerchant(info: MerchantInfo): QRResult | KHQRError
+ * function generateIndividual(info: IndividualInfo): Result<QRResult>
+ * function generateMerchant(info: MerchantInfo): Result<QRResult>
+ *
+ * // Decode QR codes
+ * function decodeKHQR(qrString: string): Result<DecodedKHQRData>
  *
  * // Decode and verify QR codes
- * function decode(qrString: string): DecodedKHQRData | KHQRError
+ * function decode(qrString: string): Result<DecodedKHQRData>
  * function verify(qrString: string): ValidationResult
  *
  * // Utility functions
@@ -48,11 +65,11 @@ export * from './helper'
  *
  * const result = generateIndividual(info);
  *
- * if (result instanceof KHQRError) {
- *   console.error('Error:', result.message);
+ * if (result.error) {
+ *   console.error('Error:', result.error.message);
  * } else {
- *   console.log('QR Code:', result.qr);
- *   console.log('MD5:', result.md5);
+ *   console.log('QR Code:', result.result?.qr);
+ *   console.log('MD5:', result.result?.md5);
  * }
  * ```
  */

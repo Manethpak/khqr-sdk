@@ -1,14 +1,7 @@
-/**
- * Core types and interfaces for KHQR (Khmer QR) system
- */
-
-// Currency types
 export type CurrencyType = 'KHR' | 'USD'
 
-// Merchant types
 export type MerchantType = 'individual' | 'merchant'
 
-// QR types
 export type QRType = 'static' | 'dynamic'
 
 /**
@@ -42,6 +35,11 @@ export interface IndividualInfo extends BaseMerchantInfo {
 }
 
 /**
+ * Static QR information, same as BaseMerchantInfo
+ */
+export interface StaticInfo extends BaseMerchantInfo {}
+
+/**
  * Merchant account information
  */
 export interface MerchantInfo extends IndividualInfo {
@@ -50,7 +48,7 @@ export interface MerchantInfo extends IndividualInfo {
 }
 
 /**
- * QR generation result - Simple
+ * QR generation result
  */
 export interface QRResult {
   qr: string
@@ -58,7 +56,7 @@ export interface QRResult {
 }
 
 /**
- * Decoded KHQR data structure - Simplified
+ * Decoded KHQR data structure
  */
 export interface DecodedKHQRData {
   payloadFormatIndicator?: string

@@ -19,7 +19,9 @@
     "prepare": "npm run build",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
-    "format": "prettier --write \"src/**/*.ts\""
+    "format": "prettier --write \"src/**/*.ts\"",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "keywords": [
     "khqr",
@@ -31,18 +33,19 @@
   "packageManager": "pnpm@10.13.1",
   "dependencies": {
     "@better-fetch/fetch": "^1.1.18",
-    "bakong-khqr": "^1.0.20",
     "zod": "^4.1.11"
   },
   "devDependencies": {
-    "@types/bakong-khqr": "^1.0.1",
     "@types/node": "^24.5.2",
     "@typescript-eslint/eslint-plugin": "^8.44.1",
     "@typescript-eslint/parser": "^8.44.1",
+    "@vitest/coverage-v8": "3.2.4",
     "eslint": "^9.36.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "prettier": "^3.6.2",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.2.4"
   }
 }

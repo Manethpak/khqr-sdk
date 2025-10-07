@@ -1,5 +1,6 @@
 import { createFetch, CreateFetchOption } from '@better-fetch/fetch'
 import { $schema } from './schema'
+import { qr } from './qr'
 
 /**
  * Create KHQR SDK instance
@@ -34,6 +35,9 @@ export const createKhqr = (fetchOption: CreateFetchOption) => {
     $fetch: createFetch({ schema: $schema, ...fetchOption }),
     /** For extending the schema */
     $schema,
-    qr: {},
+    qr,
   }
 }
+
+export type { Result } from './qr'
+export { KHQRError, ERROR_CODES, error, success, failed, wrap } from './qr'

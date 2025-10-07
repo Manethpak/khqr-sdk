@@ -215,4 +215,46 @@ export const validators = {
       errors,
     }
   },
+  /**
+   * Check if info is MerchantInfo. Can be use as type guard.
+   *
+   * @param info - any object
+   * @returns boolean
+   */
+  isMerchantInfo: (info: any): info is { merchantID: string } => {
+    return (
+      info &&
+      typeof info === 'object' &&
+      'merchantID' in info &&
+      typeof info.merchantID === 'string'
+    )
+  },
+  /**
+   * type guard for IndividualInfo. Can be use as type guard.
+   *
+   * @param info - any object
+   * @returns boolean
+   */
+  isIndividualInfo: (info: any): info is { bakongAccountID: string } => {
+    return (
+      info &&
+      typeof info === 'object' &&
+      'bakongAccountID' in info &&
+      typeof info.bakongAccountID === 'string'
+    )
+  },
+  /**
+   * Check if string is Static QR
+   */
+  isStaticQR: (qrString?: string): boolean => {
+    if (!qrString) return false
+    return /^000201010211/.test(qrString)
+  },
+  /**
+   * Check if string is Dynamic QR
+   */
+  isDynamicQR: (qrString?: string): boolean => {
+    if (!qrString) return false
+    return /^000201010212/.test(qrString)
+  },
 }
