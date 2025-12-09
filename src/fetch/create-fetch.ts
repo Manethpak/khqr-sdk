@@ -138,8 +138,3 @@ class FetchAPI {
 const createFetch = (option: FetchOption) => new FetchAPI(option)
 
 export default createFetch
-
-const api = createFetch({
-  baseURL: 'https://api.example.com',
-  authToken: 'your_token_here',
-})

@@ -9,7 +9,7 @@ example/
 tsconfig.json
 tsdown.config.ts
 vitest.config.ts
-.eslintrc.json
+eslint.config.mjs
 .prettierrc
 
 # Documentation

@@ -58,8 +58,8 @@
     "build": "tsdown",
     "clean": "rm -rf dist",
     "prepare": "npm run build",
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "format": "prettier --write \"src/**/*.ts\"",
     "test": "vitest",
     "coverage": "vitest run --coverage"
@@ -77,6 +77,7 @@
     "zod": "^4.1.11"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.1",
     "@types/node": "^24.5.2",
     "@typescript-eslint/eslint-plugin": "^8.44.1",
     "@typescript-eslint/parser": "^8.44.1",
@@ -84,6 +85,7 @@
     "eslint": "^9.36.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
+    "globals": "^16.5.0",
     "prettier": "^3.6.2",
     "tsdown": "^0.15.6",
     "typescript": "^5.9.2",
