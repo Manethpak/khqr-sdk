@@ -1,5 +1,5 @@
 {
-  "name": "khqr-sdk",
+  "name": "@manethpak/khqr-sdk",
   "version": "1.0.0",
   "author": "manethpak <manethpak.dev@gmail.com>",
   "description": "Typescript KHQR SDK for Bakong API payment",

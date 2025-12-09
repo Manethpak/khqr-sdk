@@ -1,6 +1,7 @@
 # KHQR SDK
 
-<!-- not release yet -->
+[![npm version](https://badge.fury.io/js/@manethpak/khqr-sdk.svg)](https://www.npmjs.com/package/@manethpak/khqr-sdk)
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 
 TypeScript SDK for generating, decoding, and validating KHQR (Cambodia's Bakong QR payment codes) following the EMV QR Code specification.
 
@@ -16,15 +17,15 @@ TypeScript SDK for generating, decoding, and validating KHQR (Cambodia's Bakong 
 ## Installation
 
 ```bash
-npm install khqr-sdk
+npm install @manethpak/khqr-sdk
 ```
 
 ```bash
-yarn add khqr-sdk
+yarn add @manethpak/khqr-sdk
 ```
 
 ```bash
-pnpm add khqr-sdk
+pnpm add @manethpak/khqr-sdk
 ```
 
 ## Quick Start
@@ -32,7 +33,7 @@ pnpm add khqr-sdk
 ### QR Code Generation
 
 ```typescript
-import { createKHQR } from 'khqr-sdk'
+import { createKHQR } from '@manethpak/khqr-sdk'
 
 // Initialize the SDK
 const khqr = createKHQR({
@@ -237,16 +238,20 @@ Import only what you need to reduce bundle size:
 
 ```typescript
 // Main SDK
-import { createKHQR } from 'khqr-sdk'
+import { createKHQR } from '@manethpak/khqr-sdk'
 
 // Constants only
-import { EMV_TAGS, CURRENCY_CODES } from 'khqr-sdk/constants'
+import { EMV_TAGS, CURRENCY_CODES } from '@manethpak/khqr-sdk/constants'
 
 // Helper utilities
-import { validators, calculateCRC16 } from 'khqr-sdk/helper'
+import { validators, calculateCRC16 } from '@manethpak/khqr-sdk/helper'
 
 // Type definitions
-import type { IndividualInfo, MerchantInfo, QRResult } from 'khqr-sdk/types'
+import type {
+  IndividualInfo,
+  MerchantInfo,
+  QRResult,
+} from '@manethpak/khqr-sdk/types'
 ```
 
 ## Error Handling
@@ -285,7 +290,7 @@ if (result.error) {
 ### Custom Validation
 
 ```typescript
-import { validators } from 'khqr-sdk/helper'
+import { validators } from '@manethpak/khqr-sdk/helper'
 
 const validation = validators.validateIndividualInfo({
   bakongAccountID: 'user@bank',
@@ -301,7 +306,7 @@ if (!validation.isValid) {
 ### CRC Calculation
 
 ```typescript
-import { calculateCRC16 } from 'khqr-sdk/helper'
+import { calculateCRC16 } from '@manethpak/khqr-sdk/helper'
 
 const payload = '00020101021229180...'
 const crc = calculateCRC16(payload + '6304')
@@ -335,7 +340,7 @@ import type {
   DecodedKHQRData,
   CurrencyType,
   Result,
-} from 'khqr-sdk/types'
+} from '@manethpak/khqr-sdk/types'
 
 // Strongly typed API responses
 const response = await khqr.$fetch('/v1/check_bakong_account', {
