@@ -1,44 +1,36 @@
-import { createFetch, CreateFetchOption } from '@better-fetch/fetch'
-import { $schema } from './schema'
 import { qr } from './qr'
+import createFetch, { type FetchOption } from './fetch/create-fetch'
 
 /**
  * Create KHQR SDK instance
- *
- * @param fetchOption fetch option {@link https://better-fetch.vercel.app/docs/fetch-options}
  *
  * @example
  * ```ts
  * import { createKhqr } from 'khqr-sdk'
  *
- * const khqr = createKhqr({
+ * const khqr = createKHQR({
  *   baseURL: 'https://api-bakong.nbc.gov.kh',
- *   auth: {
- *     type: 'Bearer',
- *     token: 'your_token_here',
- *   },
+ *   authToken: 'your_token_here',
  * })
  *
- * const { data, error } = await khqr.$fetch('/v1/check_transaction_by_md5', {
- *   body: {
- *     md5: 'md5_hash_string_here',
- *   },
- * })
+ * const qr = khqr.qr.generateKHQR({
+ *   bakongAccountID: 'name@bank',
+ *   merchantName: 'Name',
+ *   merchantCity: 'Phnom Penh',
+ * }) // generate static QR without amount
  *
- * if (!error) {
- *   console.log(data)
+ * if (qr.result) {
+ *   const res = await khqr.api.check_transaction_by_md5(qr.result.md5)
+ *   if (res.responseCode === 0) {
+ *     console.log('Transaction found')
+ *     console.log(res.data)
+ *   }
  * }
  * ```
  */
-export const createKHQR = (fetchOption: CreateFetchOption) => {
+export const createKHQR = (fetchOption: FetchOption) => {
   return {
-    $fetch: createFetch({ ...fetchOption, schema: $schema }),
-    $schema,
+    api: createFetch(fetchOption),
     qr,
   }
 }
-
-const khqr = createKHQR({
-  baseURL: 'https://api-bakong.nbc.gov.kh',
-  schema: $schema,
-})

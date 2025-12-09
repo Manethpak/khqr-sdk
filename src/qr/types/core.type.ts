@@ -43,8 +43,7 @@ export interface StaticInfo extends BaseMerchantInfo {}
  * Merchant account information
  */
 export interface MerchantInfo extends IndividualInfo {
-  merchantID: string
-  acquiringBank: string
+  merchantID?: string
 }
 
 /**
