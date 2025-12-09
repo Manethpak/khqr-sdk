@@ -1,0 +1,25 @@
+# Development files
+src/
+example/
+.github/
+*.spec.ts
+*.test.ts
+
+# Config files
+tsconfig.json
+tsdown.config.ts
+vitest.config.ts
+.eslintrc.json
+.prettierrc
+
+# Documentation
+.github/copilot-instructions.md
+
+# Other
+.env
+.DS_Store
+coverage/
+node_modules/
+pnpm-lock.yaml
+.gitignore
+public/

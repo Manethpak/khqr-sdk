@@ -1,8 +1,5 @@
 # KHQR SDK
 
-[![npm version](https://badge.fury.io/js/@manethpak/khqr-sdk.svg)](https://www.npmjs.com/package/@manethpak/khqr-sdk)
-[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
-
 TypeScript SDK for generating, decoding, and validating KHQR (Cambodia's Bakong QR payment codes) following the EMV QR Code specification.
 
 ## Features
