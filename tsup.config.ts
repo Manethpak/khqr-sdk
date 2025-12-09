@@ -1,4 +1,4 @@
-import { defineConfig } from 'tsdown'
+import { defineConfig } from 'tsup'
 
 export default defineConfig({
   entry: {
@@ -6,9 +6,11 @@ export default defineConfig({
     'types/index': './src/qr/types/index.ts',
     'constants/index': './src/qr/constants/index.ts',
     'helper/index': './src/qr/helper/index.ts',
-  }, // Entry files
-  format: ['esm', 'cjs'], // Support for ESM and CommonJS
+  },
+  format: ['esm', 'cjs'],
+  dts: true,
   clean: true,
-  minify: true,
-  treeshake: true,
+  splitting: false,
+  sourcemap: false,
+  minify: false,
 })
