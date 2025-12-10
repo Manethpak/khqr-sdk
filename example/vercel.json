@@ -14,18 +14,5 @@
       "source": "/api/(.*)",
       "destination": "/api/index"
     }
-  ],
-  "routes": [
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/index"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
   ]
 }
