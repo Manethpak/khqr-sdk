@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1200, height=630, initial-scale=1.0" />
+    <title>Social Preview - KHQR SDK</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              bakong: {
+                blue: '#0066CC',
+                red: '#E30016',
+                50: '#e6f0ff',
+                100: '#cce0ff',
+                200: '#99c2ff',
+                300: '#66a3ff',
+                400: '#3385ff',
+                500: '#0066CC',
+                600: '#0052a3',
+                700: '#003d7a',
+                800: '#002952',
+                900: '#001429',
+              },
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+          },
+        },
+      }
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+        background-color: #f8fafc;
+      }
+      .preview-container {
+        width: 1200px;
+        height: 630px;
+        display: flex;
+        position: relative;
+        overflow: hidden;
+      }
+      .bg-pattern {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0.1;
+        background-image: radial-gradient(#0066cc 1px, transparent 1px);
+        background-size: 24px 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="preview-container bg-white">
+      <div class="bg-pattern"></div>
+
+      <!-- Left Content -->
+      <div
+        class="relative z-10 flex flex-col justify-center px-20 w-3/5 h-full"
+      >
+        <!-- Logo Badge -->
+        <div class="flex gap-4">
+          <div
+            class="size-16 rounded-2xl flex items-center justify-center shadow-lg shadow-bakong-500/30"
+          >
+            <img
+              src="public/icon.svg"
+              class="w-full h-full object-contain"
+              alt="KHQR"
+            />
+          </div>
+          <h1 class="text-6xl font-extrabold text-gray-900 leading-tight mb-6">
+            KHQR <span class="text-bakong-500">SDK</span><br />
+          </h1>
+        </div>
+
+        <span class="text-4xl text-gray-400 font-semibold"
+          >Demo & Integration</span
+        >
+
+        <p class="text-2xl text-gray-600 leading-relaxed max-w-xl text-balance">
+          Interactive tools and libraries for Cambodia's Bakong QR payment
+          system. Generate, validate, and verify.
+        </p>
+
+        <div class="mt-10 flex items-center space-x-4">
+          <div
+            class="px-4 py-2 bg-gray-100 rounded-lg text-gray-600 font-mono text-sm border border-gray-200"
+          >
+            npm install @manethpak/khqr-sdk
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Visual -->
+      <div
+        class="relative w-2/5 h-full bg-gradient-to-br from-bakong-50 to-white flex items-center justify-center overflow-hidden"
+      >
+        <div class="absolute inset-0 bg-bakong-500/5 mix-blend-multiply"></div>
+
+        <!-- Decoration Circles -->
+        <div
+          class="absolute top-10 right-10 w-64 h-64 bg-bakong-200 rounded-full blur-3xl opacity-30"
+        ></div>
+        <div
+          class="absolute bottom-10 left-10 w-48 h-48 bg-bakong-400 rounded-full blur-3xl opacity-20"
+        ></div>
+
+        <!-- Mock Phone/Card Interface -->
+        <div
+          class="relative transform rotate-[-8deg] translate-y-8 translate-x-4 shadow-2xl shadow-bakong-500/20"
+        >
+          <div
+            class="w-[320px] bg-white rounded-3xl p-6 border border-gray-100"
+          >
+            <!-- Header -->
+            <div class="flex items-center justify-between mb-6">
+              <div
+                class="w-8 h-8 bg-bakong-50 rounded-full flex items-center justify-center"
+              >
+                <svg
+                  class="w-4 h-4 text-bakong-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16m-7 6h7"
+                  ></path>
+                </svg>
+              </div>
+              <div class="text-sm font-bold text-gray-900">Scan QR</div>
+              <div class="w-8 h-8"></div>
+            </div>
+
+            <!-- QR Placeholder -->
+            <div
+              class="aspect-square bg-gray-900 rounded-2xl p-4 mb-6 relative overflow-hidden group"
+            >
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div
+                  class="w-full h-full border-4 border-white/20 rounded-xl flex items-center justify-center"
+                >
+                  <!-- Mock QR pattern -->
+                  <div class="grid grid-cols-4 gap-2 w-3/4 h-3/4 opacity-50">
+                    <div class="bg-white rounded-sm"></div>
+                    <div class="bg-white rounded-sm"></div>
+                    <div class="bg-white rounded-sm"></div>
+                    <div class="bg-white rounded-sm"></div>
+                    <div class="bg-white rounded-sm"></div>
+                    <div
+                      class="rounded-sm col-span-2 row-span-2 bg-bakong-500"
+                    ></div>
+                    <div class="bg-white rounded-sm"></div>
+                    <div class="bg-white rounded-sm"></div>
+                    <div class="bg-white rounded-sm"></div>
+                    <div class="bg-white rounded-sm"></div>
+                    <div class="bg-white rounded-sm"></div>
+                    <div class="bg-white rounded-sm"></div>
+                    <div class="bg-white rounded-sm"></div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-4"
+              >
+                <div
+                  class="w-full h-1 bg-white/30 rounded-full overflow-hidden"
+                >
+                  <div
+                    class="w-2/3 h-full bg-bakong-500 animate-[pulse_2s_ease-in-out_infinite]"
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="space-y-3">
+              <div class="h-2 w-2/3 bg-gray-100 rounded-full"></div>
+              <div class="h-2 w-1/2 bg-gray-100 rounded-full"></div>
+            </div>
+
+            <!-- Floating Badge -->
+            <div
+              class="absolute -right-4 top-20 bg-white p-3 rounded-xl shadow-lg border border-gray-100 flex items-center gap-3"
+            >
+              <div
+                class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600"
+              >
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+              </div>
+              <div>
+                <div class="text-xs text-gray-500 font-medium">Payment</div>
+                <div class="text-sm font-bold text-gray-900">Success</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
