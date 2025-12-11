@@ -77,6 +77,12 @@ export type GenerateDeepLinkRequest = {
   }
 }
 
+export type ShortHashRequest = {
+  hash: string
+  amount: number
+  currency: Currency
+}
+
 export type GenerateDeepLinkResponse = BaseResponse & {
   data: {
     shortLink: string

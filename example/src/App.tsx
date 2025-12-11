@@ -6,6 +6,7 @@ import './styles/index.css'
 
 // Lazy load pages for better performance
 const QRGeneratorPage = lazy(() => import('./pages/QRGeneratorPage'))
+const BakongAPITesterPage = lazy(() => import('./pages/BakongAPITesterPage'))
 
 function App() {
   const [activeTab, setActiveTab] = useState('home')
@@ -22,23 +23,13 @@ function App() {
             <QRGeneratorPage />
           </Suspense>
         )
-      case 'simulator':
+      case 'api-tester':
         return (
-          <div className="text-center py-12 text-gray-500">
-            Payment Simulator - Coming soon...
-          </div>
-        )
-      case 'transactions':
-        return (
-          <div className="text-center py-12 text-gray-500">
-            Transactions - Coming soon...
-          </div>
-        )
-      case 'verify':
-        return (
-          <div className="text-center py-12 text-gray-500">
-            Verify QR - Coming soon...
-          </div>
+          <Suspense
+            fallback={<div className="text-center py-12">Loading...</div>}
+          >
+            <BakongAPITesterPage />
+          </Suspense>
         )
       default:
         return <HomePage onNavigate={setActiveTab} />

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Github, QrCode } from 'lucide-react'
+import { Github, QrCode, Terminal } from 'lucide-react'
 import { Logo } from './logo'
 
 interface LayoutProps {
@@ -16,9 +16,7 @@ export default function Layout({
   const tabs = [
     { id: 'home', label: 'Home', icon: QrCode },
     { id: 'generator', label: 'QR Generator' },
-    { id: 'simulator', label: 'Payment Simulator' },
-    { id: 'transactions', label: 'Transactions' },
-    { id: 'verify', label: 'Verify QR' },
+    { id: 'api-tester', label: 'API Tester', icon: Terminal },
   ]
 
   return (
@@ -57,6 +55,7 @@ export default function Layout({
               const Icon = tab.icon
               return (
                 <button
+                  type="button"
                   key={tab.id}
                   onClick={() => onTabChange(tab.id)}
                   className={`px-4 py-3 text-sm font-medium whitespace-nowrap transition-colors border-b-2 ${

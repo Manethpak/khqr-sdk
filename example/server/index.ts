@@ -1,9 +1,11 @@
+import 'dotenv/config'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { serveStatic } from '@hono/node-server/serve-static'
 import { serve } from '@hono/node-server'
 import qrRoutes from './routes/qr'
 import paymentRoutes from './routes/payment'
+import bakongRoutes from './routes/bakong'
 
 const app = new Hono()
 const isProd = process.env.NODE_ENV === 'production'
@@ -20,6 +22,7 @@ app.use(
 // API routes
 app.route('/api/qr', qrRoutes)
 app.route('/api/payments', paymentRoutes)
+app.route('/api/bakong', bakongRoutes)
 
 // Health check
 app.get('/api/health', (c) => {
@@ -27,6 +30,7 @@ app.get('/api/health', (c) => {
     status: 'ok',
     timestamp: new Date().toISOString(),
     environment: isProd ? 'production' : 'development',
+    bakongTokenConfigured: !!process.env.BAKONG_API_TOKEN,
   })
 })
 
