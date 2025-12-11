@@ -73,7 +73,6 @@
   "license": "ISC",
   "packageManager": "pnpm@10.13.1",
   "dependencies": {
-    "@better-fetch/fetch": "^1.1.18",
     "zod": "^4.1.11"
   },
   "devDependencies": {

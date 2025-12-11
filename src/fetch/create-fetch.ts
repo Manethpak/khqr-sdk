@@ -4,6 +4,7 @@ import {
   GenerateDeepLinkRequest,
   GenerateDeepLinkResponse,
   RenewTokenResponse,
+  ShortHashRequest,
 } from './fetch.type'
 import { validator } from './validator'
 
@@ -69,14 +70,14 @@ class FetchAPI {
 
   /**
    * Check if a Bakong account exists
-   * @param bakongAccountID - Bakong account ID to check
+   * @param accountId - Bakong account ID to check
    * @see responseCode - `0` if account exists, `1` if account does not exist.
    */
-  async check_backong_account(bakongAccountID: string) {
-    validator(bakongAccountID).bakongId().min(3).max(50).validate()
+  async check_backong_account(accountId: string) {
+    validator(accountId).bakongId().min(3).max(50).validate()
 
     return this.post<CheckBakongAccountResponse>('/v1/check_bakong_account', {
-      bakongAccountID,
+      accountId,
     })
   }
 
@@ -99,10 +100,10 @@ class FetchAPI {
     })
   }
 
-  async check_transaction_by_short_hash(shortHash: string) {
+  async check_transaction_by_short_hash(shortHash: ShortHashRequest) {
     return this.post<CheckTxByMD5Response>(
       '/v1/check_transaction_by_short_hash',
-      { shortHash }
+      shortHash
     )
   }
 
