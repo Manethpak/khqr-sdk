@@ -97,4 +97,29 @@ export const api = {
         method: 'DELETE',
       }),
   },
+  bakong: {
+    renewToken: (email: string, token?: string) =>
+      apiRequest('/bakong/renew-token', {
+        method: 'POST',
+        body: JSON.stringify({ email, token }),
+      }),
+    checkAccount: (bakongAccountID: string, token?: string) =>
+      apiRequest('/bakong/check-account', {
+        method: 'POST',
+        body: JSON.stringify({ bakongAccountID, token }),
+      }),
+    checkTransactionByMD5: (md5: string, token?: string) =>
+      apiRequest('/bakong/check-tx-md5', {
+        method: 'POST',
+        body: JSON.stringify({ md5, token }),
+      }),
+    checkTransactionByShortHash: (
+      shortHashRequest: { hash: string; amount: number; currency: 'KHR' | 'USD' },
+      token?: string
+    ) =>
+      apiRequest('/bakong/check-tx-short-hash', {
+        method: 'POST',
+        body: JSON.stringify({ shortHashRequest, token }),
+      }),
+  },
 }

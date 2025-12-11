@@ -2,10 +2,25 @@
   "version": 2,
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
+  "functions": {
+    "api/index.ts": {
+      "includeFiles": "server/**"
+    }
+  },
   "rewrites": [
     {
       "source": "/api/(.*)",
       "destination": "/api/index"
     }
-  ]
+  ],
+  "git": {
+    "deploymentEnabled": {
+      "main": true
+    }
+  },
+  "github": {
+    "silent": true,
+    "autoJobCancelation": true
+  },
+  "ignoreCommand": "bash -c 'if [ \"$VERCEL_ENV\" != \"production\" ]; then exit 0; else git diff HEAD^ HEAD --quiet -- .; fi'"
 }
