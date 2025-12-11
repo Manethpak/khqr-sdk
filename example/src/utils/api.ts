@@ -1,3 +1,5 @@
+import type { QRResult } from '@/types'
+
 const API_BASE = import.meta.env.PROD ? '/api' : 'http://localhost:3001/api'
 
 export async function apiRequest<T>(
@@ -59,8 +61,8 @@ export async function simulatePayment(data: {
 
 export const api = {
   qr: {
-    generate: (data: unknown) =>
-      apiRequest('/qr/generate', {
+    generate: (data: unknown): Promise<QRResult> =>
+      apiRequest<QRResult>('/qr/generate', {
         method: 'POST',
         body: JSON.stringify(data),
       }),

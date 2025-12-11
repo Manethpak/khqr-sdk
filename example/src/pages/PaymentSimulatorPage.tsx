@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { generateQR, simulatePayment } from '../utils/api'
 import QRCode from 'qrcode'
 import { toast } from 'sonner'
+import { Currency } from '@/types'
 
 export default function PaymentSimulatorPage() {
   const [merchantQR, setMerchantQR] = useState('')
@@ -18,7 +19,7 @@ export default function PaymentSimulatorPage() {
     merchantName: 'Coffee Corner',
     merchantCity: 'Phnom Penh',
     amount: '5.00',
-    currency: 'USD' as const,
+    currency: 'USD',
     billNumber: `BILL${Date.now()}`,
   })
 
@@ -35,7 +36,7 @@ export default function PaymentSimulatorPage() {
         merchantName: merchantForm.merchantName,
         merchantCity: merchantForm.merchantCity,
         amount: parseFloat(merchantForm.amount),
-        currency: merchantForm.currency,
+        currency: merchantForm.currency as Currency,
         billNumber: merchantForm.billNumber,
       })
 

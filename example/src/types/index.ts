@@ -1,3 +1,8 @@
+export enum Currency {
+  KHR = 'KHR',
+  USD = 'USD',
+}
+
 export interface Transaction {
   id: string
   md5: string
@@ -5,7 +10,7 @@ export interface Transaction {
   fromAccountId: string
   toAccountId: string
   amount: number
-  currency: 'KHR' | 'USD'
+  currency: Currency
   merchantName: string
   merchantCity: string
   status: 'pending' | 'success' | 'failed'
