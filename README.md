@@ -2,6 +2,8 @@
 
 TypeScript SDK for generating, decoding, and validating KHQR (Cambodia's Bakong QR payment codes) following the EMV QR Code specification.
 
+[Live demo](https://khqr-sdk.vercel.app/)
+
 > **⚠️ Note:** This is a **community-maintained** SDK and is **not officially endorsed or supported** by Bakong or the National Bank of Cambodia. Use at your own discretion.
 
 ![preview](/example/public/preview.png)
