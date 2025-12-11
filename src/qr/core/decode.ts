@@ -112,8 +112,8 @@ const SUBTAG_MAPPINGS: SubtagMapping[] = [
 function parseSubtags(
   tagValue: string,
   parentTag: string
-): Record<string, any> {
-  const result: Record<string, any> = {}
+): Record<string, unknown> {
+  const result: Record<string, unknown> = {}
   let remainingValue = tagValue
 
   while (remainingValue.length > 0) {
@@ -142,7 +142,7 @@ function parseSubtags(
       }
 
       remainingValue = parsed.remainingString
-    } catch (err) {
+    } catch {
       break
     }
   }
@@ -165,7 +165,7 @@ export function decodeKHQR(qrString: string): Result<DecodedKHQRData> {
     const parsedTags: Record<string, string> = {}
     let remainingQR = qrString
     let lastTag = ''
-    let merchantType: '29' | '30' | null = null
+    let _merchantType: '29' | '30' | null = null
 
     // Parse all tags from the QR string
     while (remainingQR.length > 0) {
@@ -180,11 +180,11 @@ export function decodeKHQR(qrString: string): Result<DecodedKHQRData> {
 
         // Handle merchant account information tags
         if (currentTag === EMV_TAGS.MERCHANT_ACCOUNT_INFORMATION_MERCHANT) {
-          merchantType = EMV_TAGS.MERCHANT_ACCOUNT_INFORMATION_MERCHANT
+          _merchantType = EMV_TAGS.MERCHANT_ACCOUNT_INFORMATION_MERCHANT
         } else if (
           currentTag === EMV_TAGS.MERCHANT_ACCOUNT_INFORMATION_INDIVIDUAL
         ) {
-          merchantType = EMV_TAGS.MERCHANT_ACCOUNT_INFORMATION_INDIVIDUAL
+          _merchantType = EMV_TAGS.MERCHANT_ACCOUNT_INFORMATION_INDIVIDUAL
         }
 
         // Only process known EMV tags
@@ -232,17 +232,18 @@ export function decodeKHQR(qrString: string): Result<DecodedKHQRData> {
           break
 
         case EMV_TAGS.MERCHANT_ACCOUNT_INFORMATION_INDIVIDUAL:
-        case EMV_TAGS.MERCHANT_ACCOUNT_INFORMATION_MERCHANT:
+        case EMV_TAGS.MERCHANT_ACCOUNT_INFORMATION_MERCHANT: {
           const subtagData = parseSubtags(value, tag)
           // Ensure bakongAccountID is present for type safety
           if (subtagData.bakongAccountID) {
             result.merchantAccountInfo = {
-              bakongAccountID: subtagData.bakongAccountID,
+              bakongAccountID: subtagData.bakongAccountID as string,
               ...result.merchantAccountInfo,
               ...subtagData,
             }
           }
           break
+        }
 
         case EMV_TAGS.MERCHANT_CATEGORY_CODE:
           result.merchantCategoryCode = value
@@ -276,7 +277,7 @@ export function decodeKHQR(qrString: string): Result<DecodedKHQRData> {
           result.languageTemplate = parseSubtags(value, tag)
           break
 
-        case EMV_TAGS.TIMESTAMP_TAG:
+        case EMV_TAGS.TIMESTAMP_TAG: {
           const timestampData = parseSubtags(value, tag)
           if (
             timestampData.creationTimestamp ||
@@ -288,6 +289,7 @@ export function decodeKHQR(qrString: string): Result<DecodedKHQRData> {
             }
           }
           break
+        }
 
         case EMV_TAGS.CRC:
           result.crc = value

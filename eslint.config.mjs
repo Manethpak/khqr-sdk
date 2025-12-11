@@ -7,17 +7,11 @@ import globals from 'globals'
 
 export default [
   {
-    ignores: [
-      'dist/**',
-      'node_modules/**',
-      'coverage/**',
-      '*.config.ts',
-      'example/**',
-    ],
+    ignores: ['dist/**', 'node_modules/**', 'coverage/**', '*.config.ts'],
   },
   eslint.configs.recommended,
   {
-    files: ['src/**/*.ts'],
+    files: ['src/**/*.ts', 'example/**/*.ts'],
     languageOptions: {
       parser: tsparser,
       parserOptions: {

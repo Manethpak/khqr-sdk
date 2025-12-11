@@ -114,7 +114,11 @@ export const api = {
         body: JSON.stringify({ md5, token }),
       }),
     checkTransactionByShortHash: (
-      shortHashRequest: { hash: string; amount: number; currency: 'KHR' | 'USD' },
+      shortHashRequest: {
+        hash: string
+        amount: number
+        currency: 'KHR' | 'USD'
+      },
       token?: string
     ) =>
       apiRequest('/bakong/check-tx-short-hash', {

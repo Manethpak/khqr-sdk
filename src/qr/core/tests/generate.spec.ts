@@ -542,6 +542,7 @@ describe('KHQR Generation', () => {
           bakongAccountID: 'user@bank',
           merchantName: 'Test',
           merchantCity: 'Phnom Penh',
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           currency: 'EUR' as any, // Only KHR and USD supported
           amount: 100,
         }
@@ -595,6 +596,7 @@ describe('KHQR Generation', () => {
           merchantName: 'a'.repeat(30), // Too long
           // Missing merchantCity
           amount: -100, // Negative
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           currency: 'INVALID' as any,
           merchantCategoryCode: '12', // Wrong format
         } as IndividualInfo

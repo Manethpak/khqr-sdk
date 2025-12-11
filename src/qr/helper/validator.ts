@@ -101,6 +101,7 @@ export const validators = {
   /**
    * Comprehensive validation for IndividualInfo
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   validateIndividualInfo: (info: any): ValidationResult => {
     const errors: string[] = []
 
@@ -163,6 +164,7 @@ export const validators = {
    * Comprehensive validation for MerchantInfo
    * Extends IndividualInfo validation
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   validateMerchantInfo: (info: any): ValidationResult => {
     const baseValidation = validators.validateIndividualInfo(info)
     const errors = [...baseValidation.errors]
@@ -221,6 +223,7 @@ export const validators = {
    * @param info - any object
    * @returns boolean
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   isMerchantInfo: (info: any): info is { merchantID: string } => {
     return (
       info &&
@@ -235,6 +238,7 @@ export const validators = {
    * @param info - any object
    * @returns boolean
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   isIndividualInfo: (info: any): info is { bakongAccountID: string } => {
     return (
       info &&
