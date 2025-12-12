@@ -13,15 +13,7 @@ import {
   EyeOff,
 } from 'lucide-react'
 import { toast } from 'sonner'
-import { api } from '@/utils/api'
-
-interface APIResponse {
-  responseCode: 0 | 1
-  responseMessage: string
-  errorCode: number | null
-  data: any
-  tokenSource?: 'user' | 'env'
-}
+import { api, type APIResponse } from '@/utils/api'
 
 export default function BakongAPITesterPage() {
   const [userToken, setUserToken] = useState('')
@@ -44,17 +36,18 @@ export default function BakongAPITesterPage() {
         <div className="flex items-start gap-2 p-3 bg-yellow-50 border border-yellow-200 rounded-lg mt-4">
           <AlertCircle className="w-5 h-5 text-yellow-600 mt-0.5 flex-shrink-0" />
           <div className="text-sm text-yellow-900">
-            <strong>Note:</strong> You need a valid Bakong API token to use these endpoints. 
-            Register at{' '}
-            <a 
-              href="https://api-bakong.nbc.gov.kh" 
-              target="_blank" 
+            <strong>Note:</strong> You need a valid Bakong API token to use
+            these endpoints. Register at{' '}
+            <a
+              href="https://api-bakong.nbc.gov.kh"
+              target="_blank"
               rel="noopener noreferrer"
               className="underline hover:text-yellow-700"
             >
               api-bakong.nbc.gov.kh
-            </a>
-            {' '}to get your token. Set it in your .env file as BAKONG_API_TOKEN or enter it below.
+            </a>{' '}
+            to get your token. Set it in your .env file as BAKONG_API_TOKEN or
+            enter it below.
           </div>
         </div>
       </div>
@@ -72,8 +65,8 @@ export default function BakongAPITesterPage() {
                 <Info className="w-4 h-4 text-blue-600 cursor-help" />
                 <div className="absolute left-0 top-6 w-72 p-3 bg-gray-900 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10">
                   Provide your Bakong API JWT token to override the server's
-                  token. Leave empty to use the token from environment
-                  variables (BAKONG_API_TOKEN).
+                  token. Leave empty to use the token from environment variables
+                  (BAKONG_API_TOKEN).
                 </div>
               </div>
             </div>
@@ -152,7 +145,7 @@ function RenewTokenSection({ userToken }: { userToken: string }) {
 
     try {
       const res = await api.bakong.renewToken(email, userToken || undefined)
-      setResponse(res as APIResponse)
+      setResponse(res)
       if (res.responseCode === 0) {
         toast.success('Token renewed successfully!')
       } else {
@@ -178,7 +171,10 @@ function RenewTokenSection({ userToken }: { userToken: string }) {
     >
       <div className="space-y-4">
         <div>
-          <label htmlFor="renew-email" className="block text-sm font-medium text-gray-700 mb-1">
+          <label
+            htmlFor="renew-email"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
             Email Address *
           </label>
           <input
@@ -247,7 +243,7 @@ function CheckAccountSection({ userToken }: { userToken: string }) {
         accountId,
         userToken || undefined
       )
-      setResponse(res as APIResponse)
+      setResponse(res)
       if (res.responseCode === 0) {
         toast.success('Account exists!')
       } else {
@@ -273,7 +269,10 @@ function CheckAccountSection({ userToken }: { userToken: string }) {
     >
       <div className="space-y-4">
         <div>
-          <label htmlFor="account-id" className="block text-sm font-medium text-gray-700 mb-1">
+          <label
+            htmlFor="account-id"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
             Bakong Account ID *
           </label>
           <input
@@ -342,7 +341,7 @@ function CheckMD5Section({ userToken }: { userToken: string }) {
         md5,
         userToken || undefined
       )
-      setResponse(res as APIResponse)
+      setResponse(res)
       if (res.responseCode === 0) {
         toast.success('Transaction found!')
       } else {
@@ -368,7 +367,10 @@ function CheckMD5Section({ userToken }: { userToken: string }) {
     >
       <div className="space-y-4">
         <div>
-          <label htmlFor="md5-hash" className="block text-sm font-medium text-gray-700 mb-1">
+          <label
+            htmlFor="md5-hash"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
             MD5 Hash *
           </label>
           <input
@@ -447,7 +449,7 @@ function CheckShortHashSection({ userToken }: { userToken: string }) {
         },
         userToken || undefined
       )
-      setResponse(res as APIResponse)
+      setResponse(res)
       if (res.responseCode === 0) {
         toast.success('Transaction found!')
       } else {
@@ -475,7 +477,10 @@ function CheckShortHashSection({ userToken }: { userToken: string }) {
     >
       <div className="space-y-4">
         <div>
-          <label htmlFor="hash" className="block text-sm font-medium text-gray-700 mb-1">
+          <label
+            htmlFor="hash"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
             Hash *
           </label>
           <input
@@ -494,7 +499,10 @@ function CheckShortHashSection({ userToken }: { userToken: string }) {
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label htmlFor="amount" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="amount"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Amount *
             </label>
             <input
@@ -510,7 +518,10 @@ function CheckShortHashSection({ userToken }: { userToken: string }) {
           </div>
 
           <div>
-            <label htmlFor="currency" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="currency"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Currency *
             </label>
             <select
@@ -648,7 +659,8 @@ function ResponseDisplay({ response }: { response: APIResponse }) {
             <p className="text-red-700">{response.responseMessage}</p>
             {response.errorCode === 14 && (
               <p className="text-red-600 mt-1 text-xs">
-                This error typically means the API token is missing or invalid. Please check your BAKONG_API_TOKEN configuration.
+                This error typically means the API token is missing or invalid.
+                Please check your BAKONG_API_TOKEN configuration.
               </p>
             )}
             {response.errorCode === 6 && (

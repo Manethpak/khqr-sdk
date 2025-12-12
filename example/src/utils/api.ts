@@ -2,6 +2,14 @@ import type { QRResult } from '@/types'
 
 const API_BASE = import.meta.env.PROD ? '/api' : 'http://localhost:3001/api'
 
+export interface APIResponse {
+  responseCode: 0 | 1
+  responseMessage: string
+  errorCode: number | null
+  data: any
+  tokenSource?: 'user' | 'env'
+}
+
 export async function apiRequest<T>(
   endpoint: string,
   options?: RequestInit
@@ -98,18 +106,24 @@ export const api = {
       }),
   },
   bakong: {
-    renewToken: (email: string, token?: string) =>
-      apiRequest('/bakong/renew-token', {
+    renewToken: (email: string, token?: string): Promise<APIResponse> =>
+      apiRequest<APIResponse>('/bakong/renew-token', {
         method: 'POST',
         body: JSON.stringify({ email, token }),
       }),
-    checkAccount: (bakongAccountID: string, token?: string) =>
-      apiRequest('/bakong/check-account', {
+    checkAccount: (
+      bakongAccountID: string,
+      token?: string
+    ): Promise<APIResponse> =>
+      apiRequest<APIResponse>('/bakong/check-account', {
         method: 'POST',
         body: JSON.stringify({ bakongAccountID, token }),
       }),
-    checkTransactionByMD5: (md5: string, token?: string) =>
-      apiRequest('/bakong/check-tx-md5', {
+    checkTransactionByMD5: (
+      md5: string,
+      token?: string
+    ): Promise<APIResponse> =>
+      apiRequest<APIResponse>('/bakong/check-tx-md5', {
         method: 'POST',
         body: JSON.stringify({ md5, token }),
       }),
@@ -120,8 +134,8 @@ export const api = {
         currency: 'KHR' | 'USD'
       },
       token?: string
-    ) =>
-      apiRequest('/bakong/check-tx-short-hash', {
+    ): Promise<APIResponse> =>
+      apiRequest<APIResponse>('/bakong/check-tx-short-hash', {
         method: 'POST',
         body: JSON.stringify({ shortHashRequest, token }),
       }),
