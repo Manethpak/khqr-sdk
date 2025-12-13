@@ -1,5 +1,5 @@
 import { Hono } from 'hono'
-import { khqr } from '../khqr'
+import { khqr } from '../khqr.js'
 
 const app = new Hono()
 

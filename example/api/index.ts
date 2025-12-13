@@ -1,8 +1,8 @@
 import { handle } from '@hono/node-server/vercel'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
-import qrRoutes from '../server/routes/qr'
-import paymentRoutes from '../server/routes/payment'
+import qrRoutes from '../server/routes/qr.js'
+import paymentRoutes from '../server/routes/payment.js'
 
 const app = new Hono()
 

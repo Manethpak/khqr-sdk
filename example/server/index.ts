@@ -3,9 +3,9 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { serveStatic } from '@hono/node-server/serve-static'
 import { serve } from '@hono/node-server'
-import qrRoutes from './routes/qr'
-import paymentRoutes from './routes/payment'
-import bakongRoutes from './routes/bakong'
+import qrRoutes from './routes/qr.js'
+import paymentRoutes from './routes/payment.js'
+import bakongRoutes from './routes/bakong.js'
 
 const app = new Hono()
 const isProd = process.env.NODE_ENV === 'production'
