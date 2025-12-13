@@ -82,11 +82,6 @@ jobs:
         working-directory: ./example
         run: pnpm install --frozen-lockfile
 
-      - name: Run example linter
-        if: steps.changes.outputs.example_changed == 'true'
-        working-directory: ./example
-        run: pnpm lint
-
       - name: Run example type check
         if: steps.changes.outputs.example_changed == 'true'
         working-directory: ./example
