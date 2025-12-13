@@ -57,7 +57,6 @@
   "scripts": {
     "build": "tsup",
     "clean": "rm -rf dist",
-    "prepare": "npm run build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"src/**/*.ts\"",
