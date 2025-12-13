@@ -12,8 +12,8 @@ importers:
         specifier: ^1.13.7
         version: 1.19.7(hono@4.10.8)
       '@manethpak/khqr-sdk':
-        specifier: link:../
-        version: link:..
+        specifier: ^1.1.3
+        version: 1.1.3
       dotenv:
         specifier: ^17.2.3
         version: 17.2.3
@@ -495,6 +495,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
+
+  '@manethpak/khqr-sdk@1.1.3':
+    resolution: {integrity: sha512-OOQZDCdXeF2MGNFhhF1jt7zqHKgoovRpsQWoeoVLDXIw5Ddio+KG+qFAkQu+md9njcqv9mK8qsnZM5ahy7XiBg==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -1293,6 +1296,9 @@ packages:
     resolution: {integrity: sha512-7dSzzRQ++CKnNI/krKnYRV7JKKPUXMEh61soaHKg9mrWEhzFWhFnxPxGl+69cD1Ou63C13NUPCnmIcrvqCuM6w==}
     engines: {node: '>=12'}
 
+  zod@4.1.13:
+    resolution: {integrity: sha512-AvvthqfqrAhNH9dnfmrfKzX5upOdjUVJYFqNSlkmGf64gRaTzlPwz99IHYnVs28qYAybvAlBV+H7pn0saFY4Ig==}
+
 snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
@@ -1587,6 +1593,10 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  '@manethpak/khqr-sdk@1.1.3':
+    dependencies:
+      zod: 4.1.13
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -2351,3 +2361,5 @@ snapshots:
       string-width: 4.2.3
       y18n: 5.0.8
       yargs-parser: 21.1.1
+
+  zod@4.1.13: {}
