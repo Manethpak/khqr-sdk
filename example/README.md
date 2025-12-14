@@ -56,30 +56,30 @@ example/
 │   ├── pages/
 │   │   ├── api/
 │   │   │   ├── qr/
-│   │   │   │   └── generate.ts       # QR generation endpoint
+│   │   │   │   └── generate.json.ts       # QR generation endpoint
 │   │   │   └── bakong/
-│   │   │       ├── check-account.ts  # Bakong API proxy
-│   │   │       ├── check-tx-md5.ts   # Transaction check proxy
-│   │   │       └── ...
-│   │   ├── index.astro               # Homepage
-│   │   ├── generator.astro           # QR Generator page
-│   │   └── api-tester.astro          # API Tester page
+│   │   │       ├── check-account.json.ts  # Bakong API proxy
+│   │   │       ├── check-tx-md5.json.ts   # Transaction check proxy
+│   │   │       ├── check-tx-short-hash.json.ts
+│   │   │       └── renew-token.json.ts
+│   │   ├── index.astro                    # Homepage
+│   │   ├── generator.astro                # QR Generator page
+│   │   └── api-tester.astro               # API Tester page
 │   ├── components/
-│   │   ├── QRGeneratorClient.tsx     # QR Generator React island
-│   │   ├── BakongAPITesterClient.tsx # API Tester React island
-│   │   └── ToasterProvider.tsx       # Toast notifications
+│   │   ├── QRGeneratorClient.tsx          # QR Generator React island
+│   │   ├── BakongAPITesterClient.tsx      # API Tester React island
+│   │   └── ToasterProvider.tsx            # Toast notifications
 │   ├── layouts/
-│   │   └── Layout.astro              # Base layout
+│   │   └── Layout.astro                   # Base layout
 │   ├── styles/
-│   │   └── index.css                 # Global styles
+│   │   └── global.css                     # Global styles
 │   ├── utils/
-│   │   └── api.ts                    # API client functions
+│   │   └── api.ts                         # API client functions
 │   └── types/
-│       └── index.ts                  # TypeScript types
-├── public/                            # Static assets
-├── astro.config.mjs                   # Astro configuration
-├── tailwind.config.js                 # TailwindCSS configuration
-├── vercel.json                        # Vercel deployment config
+│       └── index.ts                       # TypeScript types
+├── public/                                 # Static assets
+├── astro.config.mjs                        # Astro configuration
+├── vercel.json                             # Vercel deployment config
 └── package.json
 ```
 
@@ -215,7 +215,7 @@ The demo is designed for manual testing:
 Create a new file in `src/pages/api/`:
 
 ```typescript
-// src/pages/api/custom.ts
+// src/pages/api/custom.json.ts
 import type { APIRoute } from 'astro'
 
 export const POST: APIRoute = async ({ request }) => {

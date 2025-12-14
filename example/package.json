@@ -6,7 +6,8 @@
   "description": "Interactive demo for KHQR SDK showcasing QR generation and payment flows",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro check && astro build",
+    "build": "astro build",
+    "check": "astro check",
     "preview": "astro preview",
     "deploy": "vercel --prod",
     "astro": "astro"

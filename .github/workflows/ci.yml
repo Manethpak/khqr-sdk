@@ -82,10 +82,10 @@ jobs:
         working-directory: ./example
         run: pnpm install --frozen-lockfile
 
-      - name: Run example type check
+      - name: Run example astro check
         if: steps.changes.outputs.example_changed == 'true'
         working-directory: ./example
-        run: pnpm type-check
+        run: pnpm check
 
       - name: Build example
         if: steps.changes.outputs.example_changed == 'true'
