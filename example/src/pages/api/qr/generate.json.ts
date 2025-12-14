@@ -9,7 +9,17 @@ export const POST: APIRoute = async ({ request }) => {
       baseURL: 'https://api-bakong.nbc.gov.kh',
       authToken: import.meta.env.BAKONG_API_TOKEN,
     })
-    const result = khqr.qr.generateKHQR(body)
+
+    if (!body.expiryTime) {
+      body.expiryTime = 100
+    }
+    const expiryTime = body.expiryTime * 1000 + Date.now()
+
+    const result = khqr.qr.generateKHQR({
+      ...body,
+      expirationTimestamp: expiryTime,
+      acquiringBank: body.bakongAccountID?.split('@')[1] || '',
+    })
 
     if (result.error) {
       return new Response(

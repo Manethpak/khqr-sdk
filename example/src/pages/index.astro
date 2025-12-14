@@ -1,24 +1,36 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import { Code } from 'astro:components'
 ---
 
 <Layout title="KHQR SDK Demo - Cambodia's Bakong QR Payment System">
   <div class="space-y-12">
     <!-- Hero Section -->
     <div class="text-center space-y-4">
-      <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-4">
+      <div
+        class="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-4"
+      >
         <img src="/icon.svg" alt="KHQR" class="size-18 text-white" />
       </div>
       <h1 class="text-4xl font-bold text-gray-900">KHQR SDK Demo</h1>
       <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-        Interactive demonstration of the KHQR SDK for Cambodia's Bakong QR payment system. 
-        Generate, decode, and test real-world payment flows.
+        Interactive demonstration of the KHQR SDK for Cambodia's Bakong QR
+        payment system. Generate, decode, and test real-world payment flows.
       </p>
       <div class="flex justify-center gap-4 pt-4">
         <a href="/generator" class="btn-primary flex items-center space-x-2">
           <span>Try QR Generator</span>
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"></path>
           </svg>
         </a>
         <a href="/api-tester" class="btn-secondary flex items-center space-x-2">
@@ -30,41 +42,85 @@ import Layout from '../layouts/Layout.astro'
     <!-- Features Grid -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       <div class="card hover:shadow-md transition-shadow">
-        <div class="w-12 h-12 bg-bakong-100 text-bakong-600 rounded-lg flex items-center justify-center mb-4">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+        <div
+          class="w-12 h-12 bg-bakong-100 text-bakong-600 rounded-lg flex items-center justify-center mb-4"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"
+            ></path>
           </svg>
         </div>
         <h3 class="text-lg font-semibold text-gray-900 mb-2">QR Generation</h3>
-        <p class="text-gray-600 text-sm">Generate static and dynamic KHQR codes with full EMV compliance</p>
+        <p class="text-gray-600 text-sm">
+          Generate static and dynamic KHQR codes with full EMV compliance
+        </p>
       </div>
 
       <div class="card hover:shadow-md transition-shadow">
-        <div class="w-12 h-12 bg-bakong-100 text-bakong-600 rounded-lg flex items-center justify-center mb-4">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <div
+          class="w-12 h-12 bg-bakong-100 text-bakong-600 rounded-lg flex items-center justify-center mb-4"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
         </div>
-        <h3 class="text-lg font-semibold text-gray-900 mb-2">QR Verification</h3>
-        <p class="text-gray-600 text-sm">Decode and verify KHQR strings with CRC integrity checks</p>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">
+          QR Verification
+        </h3>
+        <p class="text-gray-600 text-sm">
+          Decode and verify KHQR strings with CRC integrity checks
+        </p>
       </div>
 
       <div class="card hover:shadow-md transition-shadow">
-        <div class="w-12 h-12 bg-bakong-100 text-bakong-600 rounded-lg flex items-center justify-center mb-4">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+        <div
+          class="w-12 h-12 bg-bakong-100 text-bakong-600 rounded-lg flex items-center justify-center mb-4"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
           </svg>
         </div>
         <h3 class="text-lg font-semibold text-gray-900 mb-2">TypeScript SDK</h3>
-        <p class="text-gray-600 text-sm">Fully typed SDK with comprehensive error handling and validation</p>
+        <p class="text-gray-600 text-sm">
+          Fully typed SDK with comprehensive error handling and validation
+        </p>
       </div>
     </div>
 
     <!-- Quick Example -->
     <div class="card">
       <h2 class="text-2xl font-bold text-gray-900 mb-4">Quick Example</h2>
-      <div class="bg-gray-900 rounded-lg p-6 overflow-x-auto">
-        <pre class="text-sm text-gray-100"><code>{`import { createKHQR } from '@manethpak/khqr-sdk'
+
+      <Code
+        class="rounded-xl p-6 overflow-x-auto"
+        code={`import { createKHQR } from '@manethpak/khqr-sdk'
 
 const khqr = createKHQR({
   baseURL: 'https://api-bakong.nbc.gov.kh',
@@ -81,8 +137,11 @@ const result = khqr.qr.generateKHQR({
 })
 
 console.log(result.result?.qr) // EMV-compliant QR string
-console.log(result.result?.md5) // Transaction tracking hash`}</code></pre>
-      </div>
+console.log(result.result?.md5) // Transaction tracking hash`}
+        lang="ts"
+        theme="github-dark"
+      />
+
       <div class="mt-4 flex justify-end">
         <a
           href="https://github.com/manethpak/khqr-sdk#readme"
@@ -91,8 +150,17 @@ console.log(result.result?.md5) // Transaction tracking hash`}</code></pre>
           class="text-bakong-500 hover:text-bakong-600 font-medium flex items-center space-x-1"
         >
           <span>View Documentation</span>
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"></path>
           </svg>
         </a>
       </div>
@@ -103,25 +171,43 @@ console.log(result.result?.md5) // Transaction tracking hash`}</code></pre>
       <h2 class="text-2xl font-bold text-gray-900 mb-6">How It Works</h2>
       <div class="grid md:grid-cols-3 gap-6">
         <div class="flex flex-col items-center text-center">
-          <div class="w-12 h-12 bg-bakong-500 text-white rounded-full flex items-center justify-center text-xl font-bold mb-4">
+          <div
+            class="w-12 h-12 bg-bakong-500 text-white rounded-full flex items-center justify-center text-xl font-bold mb-4"
+          >
             1
           </div>
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">Merchant Generates QR</h3>
-          <p class="text-gray-600 text-sm">Create a static or dynamic QR code with payment details</p>
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">
+            Merchant Generates QR
+          </h3>
+          <p class="text-gray-600 text-sm">
+            Create a static or dynamic QR code with payment details
+          </p>
         </div>
         <div class="flex flex-col items-center text-center">
-          <div class="w-12 h-12 bg-bakong-500 text-white rounded-full flex items-center justify-center text-xl font-bold mb-4">
+          <div
+            class="w-12 h-12 bg-bakong-500 text-white rounded-full flex items-center justify-center text-xl font-bold mb-4"
+          >
             2
           </div>
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">Customer Scans</h3>
-          <p class="text-gray-600 text-sm">Customer scans the QR code with their Bakong app</p>
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">
+            Customer Scans
+          </h3>
+          <p class="text-gray-600 text-sm">
+            Customer scans the QR code with their Bakong app
+          </p>
         </div>
         <div class="flex flex-col items-center text-center">
-          <div class="w-12 h-12 bg-bakong-500 text-white rounded-full flex items-center justify-center text-xl font-bold mb-4">
+          <div
+            class="w-12 h-12 bg-bakong-500 text-white rounded-full flex items-center justify-center text-xl font-bold mb-4"
+          >
             3
           </div>
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">Payment Complete</h3>
-          <p class="text-gray-600 text-sm">Transaction is verified and funds are transferred</p>
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">
+            Payment Complete
+          </h3>
+          <p class="text-gray-600 text-sm">
+            Transaction is verified and funds are transferred
+          </p>
         </div>
       </div>
     </div>

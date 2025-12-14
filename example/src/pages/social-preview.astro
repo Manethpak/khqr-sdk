@@ -1,41 +1,14 @@
+---
+// Social Preview Page for KHQR SDK
+import '../styles/global.css';
+---
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1200, height=630, initial-scale=1.0" />
     <title>Social Preview - KHQR SDK</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              bakong: {
-                blue: '#0066CC',
-                red: '#E30016',
-                50: '#e6f0ff',
-                100: '#cce0ff',
-                200: '#99c2ff',
-                300: '#66a3ff',
-                400: '#3385ff',
-                500: '#0066CC',
-                600: '#0052a3',
-                700: '#003d7a',
-                800: '#002952',
-                900: '#001429',
-              },
-            },
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-            },
-          },
-        },
-      }
-    </script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
     <style>
       body {
         margin: 0;
@@ -78,7 +51,7 @@
             class="size-16 rounded-2xl flex items-center justify-center shadow-lg shadow-bakong-500/30"
           >
             <img
-              src="public/icon.svg"
+              src="/icon.svg"
               class="w-full h-full object-contain"
               alt="KHQR"
             />

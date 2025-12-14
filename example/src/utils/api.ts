@@ -70,29 +70,29 @@ export async function simulatePayment(data: {
 export const api = {
   qr: {
     generate: (data: unknown): Promise<QRResult> =>
-      apiRequest<QRResult>('/qr/generate', {
+      apiRequest<QRResult>('/qr/generate.json', {
         method: 'POST',
         body: JSON.stringify(data),
       }),
     decode: (qr: string) =>
-      apiRequest('/qr/decode', {
+      apiRequest('/qr/decode.json', {
         method: 'POST',
         body: JSON.stringify({ qr }),
       }),
     verify: (qr: string) =>
-      apiRequest('/qr/verify', {
+      apiRequest('/qr/verify.json', {
         method: 'POST',
         body: JSON.stringify({ qr }),
       }),
   },
   payments: {
     initiate: (qr: string, customerAccountId: string) =>
-      apiRequest('/payments/initiate', {
+      apiRequest('/payments/initiate.json', {
         method: 'POST',
         body: JSON.stringify({ qr, customerAccountId }),
       }),
     confirm: (paymentId: string) =>
-      apiRequest('/payments/confirm', {
+      apiRequest('/payments/confirm.json', {
         method: 'POST',
         body: JSON.stringify({ paymentId }),
       }),
@@ -101,13 +101,13 @@ export const api = {
     getAll: (status?: string) =>
       apiRequest(`/payments${status ? `?status=${status}` : ''}`),
     clearAll: () =>
-      apiRequest('/payments', {
+      apiRequest('/payments.json', {
         method: 'DELETE',
       }),
   },
   bakong: {
     renewToken: (email: string, token?: string): Promise<APIResponse> =>
-      apiRequest<APIResponse>('/bakong/renew-token', {
+      apiRequest<APIResponse>('/bakong/renew-token.json', {
         method: 'POST',
         body: JSON.stringify({ email, token }),
       }),
@@ -115,7 +115,7 @@ export const api = {
       bakongAccountID: string,
       token?: string
     ): Promise<APIResponse> =>
-      apiRequest<APIResponse>('/bakong/check-account', {
+      apiRequest<APIResponse>('/bakong/check-account.json', {
         method: 'POST',
         body: JSON.stringify({ bakongAccountID, token }),
       }),
@@ -123,7 +123,7 @@ export const api = {
       md5: string,
       token?: string
     ): Promise<APIResponse> =>
-      apiRequest<APIResponse>('/bakong/check-tx-md5', {
+      apiRequest<APIResponse>('/bakong/check-tx-md5.json', {
         method: 'POST',
         body: JSON.stringify({ md5, token }),
       }),
@@ -135,7 +135,7 @@ export const api = {
       },
       token?: string
     ): Promise<APIResponse> =>
-      apiRequest<APIResponse>('/bakong/check-tx-short-hash', {
+      apiRequest<APIResponse>('/bakong/check-tx-short-hash.json', {
         method: 'POST',
         body: JSON.stringify({ shortHashRequest, token }),
       }),
