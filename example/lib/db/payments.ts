@@ -1,3 +1,7 @@
+// NOTE: This demo uses in-memory storage for simplicity.
+// Data will reset on serverless cold starts (~5-15 min of inactivity).
+// For production persistence, consider using Vercel KV, Postgres, or similar.
+
 export type Transaction = {
   id: string
   md5: string

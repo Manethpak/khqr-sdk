@@ -19,45 +19,89 @@
 
 - Node.js >= 20
 - pnpm (recommended) or npm
+- Vercel CLI: `npm i -g vercel`
 
 ### Installation
 
 ```bash
 # Install dependencies
 pnpm install
-
-# Start development servers (Vite + Hono)
-pnpm dev
-
-# Build for production
-pnpm build
-
-# Preview production build locally
-pnpm preview
 ```
 
 ### Development
 
-The demo runs two servers in development:
+**You need TWO terminals running:**
 
-- **Frontend (Vite)**: http://localhost:3000
-- **Backend (Hono)**: http://localhost:3001
+```bash
+# Terminal 1: Start API server
+pnpm dev:api
 
-Vite proxies `/api/*` requests to the Hono server automatically.
+# Terminal 2: Start frontend
+pnpm dev
+```
+
+Then open **http://localhost:3000** in your browser.
+
+> 📖 **Need help?** See [DEVELOPMENT.md](./DEVELOPMENT.md) for detailed setup guide, troubleshooting, and architecture explanation.
+
+### Production
+
+```bash
+# Build for production
+pnpm build
+
+# Deploy to Vercel
+pnpm deploy
+```
+
+### Development
+
+The app requires **two terminals** for local development:
+
+**Terminal 1 - Start API Server:**
+
+```bash
+pnpm dev:api
+# or: vercel dev --listen 3001
+```
+
+**Terminal 2 - Start Frontend:**
+
+```bash
+pnpm dev
+```
+
+Access the app:
+
+- **Frontend**: http://localhost:3000
+- **API**: http://localhost:3001/api
+
+Vite automatically proxies `/api/*` requests from the frontend to the API server.
+
+### Production
+
+```bash
+# Build for production
+pnpm build
+
+# Deploy to Vercel
+pnpm deploy
+```
 
 ## 📁 Project Structure
 
 ```
 example/
 ├── api/                    # Vercel serverless function entry
-│   └── index.ts           # Hono app wrapper for Vercel
-├── server/                 # Hono backend
+│   └── index.ts           # Main serverless handler
+├── lib/                    # Shared serverless logic
 │   ├── routes/
 │   │   ├── qr.ts          # QR generation/decoding endpoints
-│   │   └── payment.ts     # Payment simulation endpoints
+│   │   ├── payment.ts     # Payment simulation endpoints
+│   │   └── bakong.ts      # Bakong API integration
 │   ├── db/
 │   │   └── payments.ts    # In-memory payment storage
-│   └── index.ts           # Server entry point
+│   └── khqr.ts            # KHQR SDK instance
 ├── src/                    # React frontend
 │   ├── components/
 │   │   └── Layout.tsx     # App layout
@@ -162,14 +206,14 @@ vercel
 
 ### Production Build
 
-The production build bundles the React app and serves it alongside the Hono API:
+The production build creates optimized static files and serverless functions:
 
 ```bash
-# Build frontend
+# Build frontend and API
 pnpm build
 
-# Start production server
-NODE_ENV=production pnpm start
+# Deploy to Vercel
+pnpm deploy
 ```
 
 ### Environment Variables
@@ -189,11 +233,11 @@ BAKONG_API_TOKEN=your_token_here
 
 ### Adding Custom Routes
 
-1. Create a new route file in `server/routes/`
-2. Import and register it in `server/index.ts`
+1. Create a new route file in `lib/routes/`
+2. Import and register it in `api/index.ts`
 
 ```typescript
-// server/routes/custom.ts
+// lib/routes/custom.ts
 import { Hono } from 'hono'
 
 const app = new Hono()
@@ -202,8 +246,8 @@ app.get('/hello', (c) => c.json({ message: 'Hello!' }))
 
 export default app
 
-// server/index.ts
-import customRoutes from './routes/custom'
+// api/index.ts
+import customRoutes from '../lib/routes/custom'
 
 app.route('/api/custom', customRoutes)
 ```
@@ -218,7 +262,16 @@ app.route('/api/custom', customRoutes)
 
 ### Mock Data
 
-The demo uses in-memory storage for payments. Data is reset when the server restarts. This is intentional for demo purposes.
+The demo uses in-memory storage for payments to keep things simple and focused on showcasing SDK functionality.
+
+**Important:** In serverless deployment (Vercel), data may reset on cold starts (~5-15 minutes of inactivity). This is expected behavior for a demo application.
+
+For production use with persistent storage, consider integrating:
+
+- Vercel KV (Redis)
+- Vercel Postgres
+- Upstash Redis
+- Any cloud database service
 
 ### QR Code Generation
 

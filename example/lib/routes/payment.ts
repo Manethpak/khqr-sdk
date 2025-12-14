@@ -1,6 +1,6 @@
 import { Hono } from 'hono'
-import { paymentStore, type Transaction } from '../db/payments.js'
-import { khqr } from '../khqr.js'
+import { paymentStore, type Transaction } from '../db/payments'
+import { khqr } from '../khqr'
 
 const app = new Hono()
 
