@@ -7,11 +7,10 @@
 ## 🎯 Features
 
 - **QR Code Generator**: Create static and dynamic KHQR codes with customizable payment details
-- **Payment Simulator**: Experience real-world payment flows from merchant and customer perspectives
-- **Transaction Dashboard**: Monitor and track payment transactions in real-time
+- **Bakong API Tester**: Test real Bakong API endpoints with manual input
 - **QR Verification**: Decode and validate KHQR strings with CRC integrity checks
 - **Type-Safe**: Full TypeScript support throughout the application
-- **Modern Stack**: Built with Vite, React, Hono, and TailwindCSS
+- **Modern SSR**: Built with Astro, React islands, and TailwindCSS
 
 ## 🚀 Quick Start
 
@@ -19,7 +18,6 @@
 
 - Node.js >= 20
 - pnpm (recommended) or npm
-- Vercel CLI: `npm i -g vercel`
 
 ### Installation
 
@@ -30,19 +28,12 @@ pnpm install
 
 ### Development
 
-**You need TWO terminals running:**
-
 ```bash
-# Terminal 1: Start API server
-pnpm dev:api
-
-# Terminal 2: Start frontend
+# Start development server
 pnpm dev
 ```
 
-Then open **http://localhost:3000** in your browser.
-
-> 📖 **Need help?** See [DEVELOPMENT.md](./DEVELOPMENT.md) for detailed setup guide, troubleshooting, and architecture explanation.
+Then open **http://localhost:4321** in your browser.
 
 ### Production
 
@@ -50,39 +41,8 @@ Then open **http://localhost:3000** in your browser.
 # Build for production
 pnpm build
 
-# Deploy to Vercel
-pnpm deploy
-```
-
-### Development
-
-The app requires **two terminals** for local development:
-
-**Terminal 1 - Start API Server:**
-
-```bash
-pnpm dev:api
-# or: vercel dev --listen 3001
-```
-
-**Terminal 2 - Start Frontend:**
-
-```bash
-pnpm dev
-```
-
-Access the app:
-
-- **Frontend**: http://localhost:3000
-- **API**: http://localhost:3001/api
-
-Vite automatically proxies `/api/*` requests from the frontend to the API server.
-
-### Production
-
-```bash
-# Build for production
-pnpm build
+# Preview production build locally
+pnpm preview
 
 # Deploy to Vercel
 pnpm deploy
@@ -92,35 +52,35 @@ pnpm deploy
 
 ```
 example/
-├── api/                    # Vercel serverless function entry
-│   └── index.ts           # Main serverless handler
-├── lib/                    # Shared serverless logic
-│   ├── routes/
-│   │   ├── qr.ts          # QR generation/decoding endpoints
-│   │   ├── payment.ts     # Payment simulation endpoints
-│   │   └── bakong.ts      # Bakong API integration
-│   ├── db/
-│   │   └── payments.ts    # In-memory payment storage
-│   └── khqr.ts            # KHQR SDK instance
-├── src/                    # React frontend
-│   ├── components/
-│   │   └── Layout.tsx     # App layout
+├── src/
 │   ├── pages/
-│   │   ├── HomePage.tsx           # Landing page
-│   │   └── QRGeneratorPage.tsx    # QR generator
-│   ├── utils/
-│   │   └── api.ts         # API client
-│   ├── types/
-│   │   └── index.ts       # TypeScript types
+│   │   ├── api/
+│   │   │   ├── qr/
+│   │   │   │   └── generate.ts       # QR generation endpoint
+│   │   │   └── bakong/
+│   │   │       ├── check-account.ts  # Bakong API proxy
+│   │   │       ├── check-tx-md5.ts   # Transaction check proxy
+│   │   │       └── ...
+│   │   ├── index.astro               # Homepage
+│   │   ├── generator.astro           # QR Generator page
+│   │   └── api-tester.astro          # API Tester page
+│   ├── components/
+│   │   ├── QRGeneratorClient.tsx     # QR Generator React island
+│   │   ├── BakongAPITesterClient.tsx # API Tester React island
+│   │   └── ToasterProvider.tsx       # Toast notifications
+│   ├── layouts/
+│   │   └── Layout.astro              # Base layout
 │   ├── styles/
-│   │   └── index.css      # Global styles
-│   ├── App.tsx            # Main app component
-│   └── main.tsx           # App entry point
-├── package.json
-├── vite.config.ts
-├── tailwind.config.js
-├── vercel.json            # Vercel deployment config
-└── README.md
+│   │   └── index.css                 # Global styles
+│   ├── utils/
+│   │   └── api.ts                    # API client functions
+│   └── types/
+│       └── index.ts                  # TypeScript types
+├── public/                            # Static assets
+├── astro.config.mjs                   # Astro configuration
+├── tailwind.config.js                 # TailwindCSS configuration
+├── vercel.json                        # Vercel deployment config
+└── package.json
 ```
 
 ## 🔌 API Endpoints
@@ -129,61 +89,52 @@ example/
 
 ```
 POST /api/qr/generate
-  Body: IndividualInfo | MerchantInfo
+  Body: { bakongAccountID, merchantName, merchantCity, currency, amount?, ... }
   Response: { qr: string, md5: string }
-
-POST /api/qr/decode
-  Body: { qr: string }
-  Response: DecodedKHQRData
-
-POST /api/qr/verify
-  Body: { qr: string }
-  Response: VerifyStringResult
 ```
 
-### Payment Simulation
+### Bakong API (Proxy Endpoints)
 
 ```
-POST /api/payments/initiate
-  Body: { qr: string, customerAccountId: string }
-  Response: { paymentId, details }
+POST /api/bakong/renew-token
+  Body: { email, token? }
+  Response: APIResponse
 
-POST /api/payments/confirm
-  Body: { paymentId: string }
-  Response: { transaction, success }
+POST /api/bakong/check-account
+  Body: { bakongAccountID, token? }
+  Response: APIResponse
 
-GET /api/payments
-  Query: ?status=SUCCESS&limit=10
-  Response: { transactions, count }
+POST /api/bakong/check-tx-md5
+  Body: { md5, token? }
+  Response: APIResponse
 
-GET /api/payments/:id
-  Response: Transaction
-
-GET /api/payments/md5/:md5
-  Response: Transaction
+POST /api/bakong/check-tx-short-hash
+  Body: { shortHashRequest: { hash, amount, currency }, token? }
+  Response: APIResponse
 ```
 
 ## 📦 Tech Stack
 
-### Frontend
+### Framework
 
-- **React 18** - UI library
-- **Vite** - Build tool & dev server
+- **Astro 5** - SSR framework with React islands architecture
+- **React 18** - Interactive UI components (islands)
 - **TypeScript** - Type safety
-- **TailwindCSS** - Styling
+
+### Styling
+
+- **TailwindCSS** - Utility-first CSS
 - **Lucide React** - Icons
-- **Sonner** - Toast notifications
-- **QRCode** - QR code image generation
 
-### Backend
-
-- **Hono** - Web framework
-- **TypeScript** - Type safety
-- **@hono/node-server** - Node.js adapter
-
-### SDK
+### Libraries
 
 - **@manethpak/khqr-sdk** - KHQR generation, decoding, and validation
+- **QRCode** - QR code image generation
+- **Sonner** - Toast notifications
+
+### Deployment
+
+- **Vercel** - Serverless deployment with edge functions
 
 ## 🌐 Deployment
 
@@ -196,24 +147,12 @@ The easiest way to deploy this demo:
 Or manually:
 
 ```bash
-# Install Vercel CLI
+# Install Vercel CLI (if not already installed)
 npm i -g vercel
 
 # Deploy
 cd example
 vercel
-```
-
-### Production Build
-
-The production build creates optimized static files and serverless functions:
-
-```bash
-# Build frontend and API
-pnpm build
-
-# Deploy to Vercel
-pnpm deploy
 ```
 
 ### Environment Variables
@@ -224,70 +163,79 @@ For real Bakong API integration (optional):
 # Copy example env file
 cp .env.example .env
 
-# Edit .env
-BAKONG_API_URL=https://api-bakong.nbc.gov.kh
-BAKONG_API_TOKEN=your_token_here
+# Edit .env and add your token
+BAKONG_API_TOKEN=your_jwt_token_here
 ```
 
-## 🎨 Customization
+## Architecture
 
-### Adding Custom Routes
+This demo uses **Astro's islands architecture** for optimal performance:
 
-1. Create a new route file in `lib/routes/`
-2. Import and register it in `api/index.ts`
+- **Static pages**: Generated at build time (homepage)
+- **SSR pages**: Server-rendered on demand (generator, api-tester)
+- **React islands**: Interactive components hydrated on the client
+- **API routes**: Serverless functions that proxy to Bakong API or handle QR generation
 
-```typescript
-// lib/routes/custom.ts
-import { Hono } from 'hono'
+### Why Astro?
 
-const app = new Hono()
+- **Better performance**: Ships minimal JavaScript (only islands are interactive)
+- **Simpler deployment**: Single unified codebase with built-in SSR
+- **Vercel-optimized**: First-class Vercel adapter support
+- **Developer experience**: File-based routing, automatic TypeScript support
 
-app.get('/hello', (c) => c.json({ message: 'Hello!' }))
+### API Proxy Pattern
 
-export default app
+The API endpoints follow a simple proxy pattern:
 
-// api/index.ts
-import customRoutes from '../lib/routes/custom'
+1. User provides input through React component
+2. Component calls `/api/*` endpoint
+3. API endpoint uses KHQR SDK server-side
+4. Response sent back to client
 
-app.route('/api/custom', customRoutes)
-```
+This approach:
 
-### Adding New Pages
-
-1. Create a page component in `src/pages/`
-2. Add a route in `src/App.tsx`
-3. Add a tab in `src/components/Layout.tsx`
+- ✅ Keeps SDK logic server-side (Node.js crypto module compatibility)
+- ✅ Allows users to test with their own API tokens
+- ✅ No database or state management needed
+- ✅ Perfect for demo/testing purposes
 
 ## 🧪 Development Notes
 
-### Mock Data
+### No Backend State
 
-The demo uses in-memory storage for payments to keep things simple and focused on showcasing SDK functionality.
+The demo is designed for manual testing:
 
-**Important:** In serverless deployment (Vercel), data may reset on cold starts (~5-15 minutes of inactivity). This is expected behavior for a demo application.
+- No database or persistence layer
+- API endpoints are stateless proxies
+- Users provide all input directly through forms
+- Perfect for learning and testing the KHQR SDK
 
-For production use with persistent storage, consider integrating:
+### Adding Custom Endpoints
 
-- Vercel KV (Redis)
-- Vercel Postgres
-- Upstash Redis
-- Any cloud database service
+Create a new file in `src/pages/api/`:
 
-### QR Code Generation
+```typescript
+// src/pages/api/custom.ts
+import type { APIRoute } from 'astro'
 
-QR codes are generated using the KHQR SDK and displayed as images using the `qrcode` library.
+export const POST: APIRoute = async ({ request }) => {
+  const body = await request.json()
 
-### Payment Simulation
+  // Your logic here
 
-Payments have a 90% success rate to simulate real-world scenarios with occasional failures.
+  return new Response(JSON.stringify({ success: true }), {
+    status: 200,
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+```
 
 ## 📚 Learn More
 
 - [KHQR SDK Documentation](https://github.com/manethpak/khqr-sdk#readme)
 - [Bakong Official Site](https://bakong.nbc.gov.kh)
-- [EMV QR Code Specification](https://www.emvco.com/emv-technologies/qrcodes/)
-- [Hono Documentation](https://hono.dev/)
-- [Vite Documentation](https://vitejs.dev/)
+- [Astro Documentation](https://docs.astro.build)
+- [Vercel Deployment](https://vercel.com/docs)
 
 ## 🤝 Contributing
 

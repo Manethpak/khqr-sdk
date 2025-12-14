@@ -5,7 +5,7 @@ import QRCode from 'qrcode'
 import { api } from '@/utils/api'
 import type { QRResult } from '@/types'
 
-export default function QRGeneratorPage() {
+export default function QRGeneratorClient() {
   const [formData, setFormData] = useState({
     bakongAccountID: '',
     merchantName: '',

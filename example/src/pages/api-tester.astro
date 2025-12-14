@@ -1,0 +1,10 @@
+---
+import Layout from '../layouts/Layout.astro'
+import BakongAPITesterClient from '../components/BakongAPITesterClient'
+import ToasterProvider from '../components/ToasterProvider'
+---
+
+<Layout title="API Tester - KHQR SDK Demo">
+  <BakongAPITesterClient client:load />
+  <ToasterProvider client:only="react" />
+</Layout>

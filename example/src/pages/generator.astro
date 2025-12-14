@@ -1,0 +1,10 @@
+---
+import Layout from '../layouts/Layout.astro'
+import QRGeneratorClient from '../components/QRGeneratorClient'
+import ToasterProvider from '../components/ToasterProvider'
+---
+
+<Layout title="QR Generator - KHQR SDK Demo">
+  <QRGeneratorClient client:load />
+  <ToasterProvider client:only="react" />
+</Layout>

@@ -1,6 +1,6 @@
 import type { QRResult } from '@/types'
 
-const API_BASE = import.meta.env.PROD ? '/api' : 'http://localhost:3001/api'
+const API_BASE = '/api'
 
 export interface APIResponse {
   responseCode: 0 | 1
