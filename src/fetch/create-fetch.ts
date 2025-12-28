@@ -42,6 +42,11 @@ class FetchAPI {
       headers: this.headers(),
       ...options,
     })
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+    }
+
     return response.json()
   }
 
@@ -56,6 +61,11 @@ class FetchAPI {
       body: JSON.stringify(body),
       ...options,
     })
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+    }
+
     return response.json()
   }
 
