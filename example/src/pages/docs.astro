@@ -1,0 +1,54 @@
+---
+import { readFile } from 'node:fs/promises'
+import { createMarkdownProcessor } from '@astrojs/markdown-remark'
+import Layout from '../layouts/Layout.astro'
+
+const readmePath = new URL('../../../README.md', import.meta.url)
+const readme = await readFile(readmePath, 'utf8')
+const processor = await createMarkdownProcessor({ syntaxHighlight: 'shiki' })
+const rendered = await processor.render(
+  readme.replace(/^!\[preview\].*$/m, '')
+)
+const headings = rendered.metadata.headings.filter(
+  ({ depth }) => depth === 2 || depth === 3
+)
+---
+
+<Layout
+  title="Documentation — KHQR SDK"
+  description="Installation, usage guides, API reference, and examples for the KHQR TypeScript SDK."
+>
+  <div class="docs-shell">
+    <aside class="docs-sidebar">
+      <div class="docs-sidebar-inner">
+        <p class="docs-nav-label">On this page</p>
+        <nav aria-label="Documentation sections">
+          {headings.map((heading) => (
+            <a
+              href={`#${heading.slug}`}
+              class:list={['docs-nav-link', { nested: heading.depth === 3 }]}
+            >
+              {heading.text}
+            </a>
+          ))}
+        </nav>
+        <a
+          class="docs-edit-link"
+          href="https://github.com/manethpak/khqr-sdk/edit/main/README.md"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Edit on GitHub <span>↗</span>
+        </a>
+      </div>
+    </aside>
+
+    <article class="docs-content">
+      <div class="docs-source-note">
+        <span>README.md</span>
+        <p>This page is generated directly from the repository README.</p>
+      </div>
+      <Fragment set:html={rendered.code} />
+    </article>
+  </div>
+</Layout>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="408" height="541" viewBox="0 0 408 541" role="img"
+    aria-labelledby="t"
+    font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans Khmer', 'Khmer OS', sans-serif">
+    <title id="t">Boba Tea — 10,000 KHR (KHQR)</title>
+    <defs>
+        <clipPath id="c">
+            <rect width="360" height="481" rx="16" ry="16" />
+        </clipPath>
+        <filter id="s" x="-15%" y="-10%" width="130%" height="130%"
+            color-interpolation-filters="sRGB">
+            <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#0f172a"
+                flood-opacity="0.16" />
+            <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.08" />
+        </filter>
+    </defs>
+    <g transform="translate(24 16)">
+        <rect width="360" height="481" rx="16" ry="16" fill="#fff" filter="url(#s)" />
+        <g clip-path="url(#c)">
+            <rect width="360" height="481" fill="#fff" />
+            <rect width="360" height="44" fill="#fb2c36" />
+            <g transform="translate(150 15)">
+                <path fill="#fff"
+                    d="M39.006 5.194v4.404h-4.474a.795.795 0 0 1-.803-.79V5.222c0-.452.372-.79.803-.79h3.642c.488-.029.832.31.832.761ZM59.972 6.972h-2.238c0-2.625-2.18-4.77-4.847-4.77-2.122 0-3.986 1.354-4.617 3.33-.144.48-.23.96-.23 1.44v7h-.057c-1.205 0-2.18-.96-2.18-2.145V6.972h.029c0-1.92.803-3.754 2.237-5.08A7.144 7.144 0 0 1 52.916 0c3.9 0 7.056 3.133 7.056 6.972Z" />
+                <path fill="#fff"
+                    d="M60 13.971 56.845 14l-.774-.763-1.721-1.693L51.97 9.2h3.154L60 13.971ZM39.752 11.77h-6.74a1.47 1.47 0 0 1-1.492-1.468V3.67c0-.818.66-1.467 1.492-1.467h6.74c.831 0 1.491.649 1.491 1.467v6.633l2.237 2.202V2.145C43.48.96 42.505 0 41.3 0h-9.837c-1.205 0-2.18.96-2.18 2.145v9.682c0 1.185.975 2.145 2.18 2.145h10.526l-2.237-2.202ZM12.361 14H9.207L2.61 7.48V14H0V0h2.61v6.238L8.948 0h3.098L5.163 6.718 12.36 14ZM24.15 0h2.552v14h-2.553V7.931h-7.285V14h-2.553V0h2.553v5.843h7.285V0Z" />
+            </g>
+            <path d="M336 44h24v24z" fill="#fb2c36" />
+            <text x="24" y="75" font-size="14" fill="#334155">Boba Tea</text>
+            <text x="24" y="105" font-size="24" font-weight="700" fill="#1f2937">10,000<tspan dx="8"
+                    dy="-3" font-size="14" font-weight="500" fill="#475569">KHR</tspan></text>
+            <line x1="0" y1="121" x2="360" y2="121" stroke="#d1d5db" stroke-dasharray="4 4" />
+            <g transform="translate(24 145) scale(4.273972602739726)" shape-rendering="crispEdges">
+                <!-- QR code render here -->
+            </g>
+            <g transform="translate(158 279) scale(1.0731707317073171)">
+                <!-- Currency icon render here -->
+            </g>
+        </g>
+    </g>
+</svg>

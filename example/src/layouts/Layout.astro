@@ -12,9 +12,16 @@ interface Props {
 
 const {
   title,
-  description = 'Interactive demo for KHQR SDK showcasing QR generation and payment flows',
+  description = 'Build and test Cambodia-ready QR payment flows with the KHQR SDK.',
 } = Astro.props
 const currentPath = Astro.url.pathname
+
+const links = [
+  { href: '/', label: 'Overview', index: '01' },
+  { href: '/docs', label: 'Docs', index: '02' },
+  { href: '/generator', label: 'QR Studio', index: '03' },
+  { href: '/api-tester', label: 'API Console', index: '04' },
+]
 ---
 
 <!doctype html>
@@ -22,123 +29,66 @@ const currentPath = Astro.url.pathname
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content="/preview.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content="/preview.png" />
-
     <ClientRouter />
   </head>
   <body>
-    <div class="min-h-screen bg-gray-50">
-      <!-- Header -->
-      <header class="bg-white shadow-sm border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="flex justify-between items-center h-16">
-            <div class="flex items-center space-x-3">
-              <img src="/icon.svg" alt="KHQR Logo" class="size-10 shadow-sm" />
-              <div>
-                <h1 class="text-xl font-bold text-gray-900">KHQR SDK Demo</h1>
-                <p class="text-xs text-gray-500">Bakong Payment System</p>
-              </div>
-            </div>
-            <div class="flex items-center gap-8">
-              <a
-                href="https://www.npmjs.com/package/@manethpak/khqr-sdk"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                <NpmIcon className="size-5" />
-                <span class="hidden sm:inline">npm</span>
-              </a>
-              <a
-                href="https://github.com/manethpak/khqr-sdk"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                <GithubIcon className="size-5" />
-                <span class="hidden sm:inline">GitHub</span>
-              </a>
-            </div>
-          </div>
+    <div class="site-frame">
+      <header class="site-header">
+        <a href="/" class="brand" aria-label="KHQR SDK home">
+          <span class="brand-mark"><img src="/icon.svg" alt="" /></span>
+          <span class="brand-copy">
+            <strong>KHQR</strong>
+            <small>Developer kit / Cambodia</small>
+          </span>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary navigation">
+          {links.map((link) => (
+            <a
+              href={link.href}
+              class:list={['nav-link', { active: currentPath === link.href }]}
+              aria-current={currentPath === link.href ? 'page' : undefined}
+            >
+              <span>{link.index}</span>{link.label}
+            </a>
+          ))}
+        </nav>
+
+        <div class="source-links">
+          <a href="https://www.npmjs.com/package/@manethpak/khqr-sdk" target="_blank" rel="noopener noreferrer" aria-label="View package on npm">
+            <NpmIcon className="size-5" />
+          </a>
+          <a href="https://github.com/manethpak/khqr-sdk" target="_blank" rel="noopener noreferrer" aria-label="View source on GitHub">
+            <GithubIcon className="size-5" />
+          </a>
         </div>
       </header>
 
-      <!-- Navigation -->
-      <nav class="bg-white border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="flex space-x-1 overflow-x-auto">
-            <a
-              href="/"
-              class={`px-4 py-3 text-sm font-medium whitespace-nowrap transition-colors border-b-2 ${
-                currentPath === '/'
-                  ? 'border-bakong-500 text-bakong-600'
-                  : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
-              }`}
-            >
-              Home
-            </a>
-            <a
-              href="/generator"
-              class={`px-4 py-3 text-sm font-medium whitespace-nowrap transition-colors border-b-2 ${
-                currentPath === '/generator'
-                  ? 'border-bakong-500 text-bakong-600'
-                  : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
-              }`}
-            >
-              QR Generator
-            </a>
-            <a
-              href="/api-tester"
-              class={`px-4 py-3 text-sm font-medium whitespace-nowrap transition-colors border-b-2 ${
-                currentPath === '/api-tester'
-                  ? 'border-bakong-500 text-bakong-600'
-                  : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
-              }`}
-            >
-              API Tester
-            </a>
-          </div>
-        </div>
-      </nav>
-
-      <!-- Main Content -->
-      <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main class="site-main">
         <slot />
       </main>
 
-      <!-- Footer -->
-      <footer class="bg-white border-t border-gray-200 mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <p class="text-center text-sm text-gray-500">
-            Built with{' '}
-            <a
-              href="https://github.com/manethpak/khqr-sdk"
-              class="text-bakong-500 hover:text-bakong-600"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              KHQR SDK
-            </a>
-            {' '}- Cambodia's Bakong QR Payment System
-          </p>
-        </div>
+      <footer class="site-footer">
+        <p><span class="status-dot"></span>Open-source payment infrastructure</p>
+        <p>Built for Cambodia's Bakong ecosystem · <a href="https://github.com/manethpak/khqr-sdk" target="_blank" rel="noopener noreferrer">View source</a></p>
       </footer>
     </div>
   </body>
