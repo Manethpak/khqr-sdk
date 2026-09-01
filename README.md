@@ -453,7 +453,7 @@ If you encounter any issues or have questions, please [open an issue](https://gi
 
 Support me with a small donation, your support is appreciated!
 
-<img src="/api/render/00020101021129270015maneth_pak@aclb0204aclb5204599953031165802KH5910Pak%20Maneth6010Phnom%20Penh62160212+855934423856304D57B.svg" alt="Donate" />
+<img src="https://khqr-sdk.vercel.app/api/render/00020101021129270015maneth_pak@aclb0204aclb5204599953031165802KH5910Maneth Pak6009Califonia63040AAC.svg" alt="Donate" />
 
 ---
 
