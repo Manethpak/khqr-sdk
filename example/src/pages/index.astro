@@ -6,14 +6,18 @@ import { Code } from 'astro:components'
 <Layout title="KHQR SDK — Payment tools for Cambodia">
   <section class="hero">
     <div class="hero-copy">
-      <p class="eyebrow"><span>SDK / 1.1</span> Bakong payment infrastructure</p>
+      <p class="eyebrow">
+        <span>SDK / 1.1</span> Bakong payment infrastructure
+      </p>
       <h1>From code to<br /><em>countertop.</em></h1>
       <p class="hero-intro">
         Generate compliant KHQR payment codes and validate live Bakong
         transactions from one focused TypeScript toolkit.
       </p>
       <div class="hero-actions">
-        <a href="/generator" class="btn-primary">Open QR Studio <span>↗</span></a>
+        <a href="/generator" class="btn-primary"
+          >Open QR Studio <span>↗</span></a
+        >
         <a href="/docs" class="text-link">Read the docs <span>→</span></a>
       </div>
     </div>
@@ -25,36 +29,59 @@ import { Code } from 'astro:components'
           <span class="live-mark"><i></i> READY</span>
         </div>
         <div class="ticket-body">
-          <div class="qr-motif" aria-hidden="true">
-            {Array.from({ length: 81 }).map((_, i) => <i class:list={{ filled: [0,1,2,3,4,9,13,18,20,22,24,27,28,30,31,33,36,37,38,40,42,44,45,49,53,55,57,58,60,62,63,64,65,66,67,69,73,76,78,80].includes(i) }}></i>)}
-          </div>
+          <img src="/maneth-qr.png" alt="QR" style="rotate: 2deg;" />
           <div class="receipt-data">
-            <small>PAY TO</small><strong>Tonlé Coffee</strong>
-            <small>AMOUNT</small><strong>៛ 24,000</strong>
-            <span>coffee@aclb</span>
+            <small>PAY TO</small><strong>Maneth Pak</strong>
+            <small>AMOUNT</small><strong>៛ 1,000</strong>
+            <span>maneth_pak@aclb</span>
           </div>
         </div>
-        <div class="ticket-foot"><span>EMV® compliant</span><span>CRC verified</span><span>KH / 116</span></div>
+        <div class="ticket-foot">
+          <span>EMV® compliant</span><span>CRC verified</span><span
+            >KH / 116</span
+          >
+        </div>
       </div>
-      <span class="object-caption">A payment primitive,<br />not another platform.</span>
+      <span class="object-caption"
+        >A payment primitive,<br />not another platform.</span
+      >
     </div>
   </section>
 
   <section class="capability-strip" aria-label="SDK capabilities">
-    <div><span>01</span><strong>Generate</strong><p>Static and dynamic KHQR strings with typed payment data.</p></div>
-    <div><span>02</span><strong>Verify</strong><p>Decode payloads and validate CRC integrity before use.</p></div>
-    <div><span>03</span><strong>Track</strong><p>Query Bakong by MD5 or short hash to confirm payment.</p></div>
+    <div>
+      <span>01</span><strong>Generate</strong><p>
+        Static and dynamic KHQR strings with typed payment data.
+      </p>
+    </div>
+    <div>
+      <span>02</span><strong>Verify</strong><p>
+        Decode payloads and validate CRC integrity before use.
+      </p>
+    </div>
+    <div>
+      <span>03</span><strong>Track</strong><p>
+        Query Bakong by MD5 or short hash to confirm payment.
+      </p>
+    </div>
   </section>
 
   <section class="workbench">
     <div class="section-heading">
       <p class="eyebrow"><span>QUICK START</span> Minimal surface area</p>
       <h2>One client.<br />A complete flow.</h2>
-      <p>Strong types, explicit results, and no framework lock-in. Move from installation to a scannable code in minutes.</p>
-      <div class="install-command"><span>$</span><code>pnpm add @manethpak/khqr-sdk</code></div>
+      <p>
+        Strong types, explicit results, and no framework lock-in. Move from
+        installation to a scannable code in minutes.
+      </p>
+      <div class="install-command">
+        <span>$</span><code>pnpm add @manethpak/khqr-sdk</code>
+      </div>
     </div>
     <div class="code-window">
-      <div class="code-bar"><span>payment.ts</span><span>TypeScript · SDK</span></div>
+      <div class="code-bar">
+        <span>payment.ts</span><span>TypeScript · SDK</span>
+      </div>
       <Code
         code={`import { createKHQR } from '@manethpak/khqr-sdk'
 
@@ -80,17 +107,45 @@ console.log(payment.result?.md5)`}
   </section>
 
   <section class="flow-section">
-    <div class="flow-title"><p class="eyebrow"><span>PAYMENT LOOP</span> Three clear steps</p><h2>Generate.<br />Scan. Confirm.</h2></div>
+    <div class="flow-title">
+      <p class="eyebrow"><span>PAYMENT LOOP</span> Three clear steps</p><h2>
+        Generate.<br />Scan. Confirm.
+      </h2>
+    </div>
     <div class="flow-steps">
-      <article><span>01</span><div><strong>Create a request</strong><p>Pass merchant and transaction details through the typed generator.</p></div></article>
-      <article><span>02</span><div><strong>Present the code</strong><p>Render the EMV payload at checkout or in your own interface.</p></div></article>
-      <article><span>03</span><div><strong>Verify settlement</strong><p>Use the returned hash to query payment status through Bakong.</p></div></article>
+      <article>
+        <span>01</span><div>
+          <strong>Create a request</strong><p>
+            Pass merchant and transaction details through the typed generator.
+          </p>
+        </div>
+      </article>
+      <article>
+        <span>02</span><div>
+          <strong>Present the code</strong><p>
+            Render the EMV payload at checkout or in your own interface.
+          </p>
+        </div>
+      </article>
+      <article>
+        <span>03</span><div>
+          <strong>Verify settlement</strong><p>
+            Use the returned hash to query payment status through Bakong.
+          </p>
+        </div>
+      </article>
     </div>
   </section>
 
   <section class="final-cta">
     <p>Ready to test the full loop?</p>
     <h2>Build your first KHQR.</h2>
-    <div><a href="/generator" class="btn-primary">Launch QR Studio <span>↗</span></a><a href="/api-tester" class="text-link">Explore the API Console <span>→</span></a></div>
+    <div>
+      <a href="/generator" class="btn-primary"
+        >Launch QR Studio <span>↗</span></a
+      ><a href="/api-tester" class="text-link"
+        >Explore the API Console <span>→</span></a
+      >
+    </div>
   </section>
 </Layout>

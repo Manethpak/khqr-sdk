@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { QrCode, Copy, Download, Check, AlertCircle } from 'lucide-react'
 import { toast } from 'sonner'
-import QRCode from 'qrcode'
 import { api } from '@/utils/api'
 import type { QRResult } from '@/types'
 
@@ -68,13 +67,10 @@ export default function QRGeneratorClient() {
 
       const result = await api.qr.generate(payload)
       setQrResult(result)
-
-      // Generate QR code image
-      const qrDataUrl = await QRCode.toDataURL(result.qr, {
-        width: 300,
-        margin: 2,
-      })
-      setQrImageUrl(qrDataUrl)
+      const qrPath = encodeURIComponent(result.qr)
+        .replace(/%40/gi, '@')
+        .replace(/%2B/gi, '+')
+      setQrImageUrl(`/api/render/${qrPath}.svg`)
 
       toast.success('QR Code generated successfully!')
     } catch (error) {
@@ -103,7 +99,7 @@ export default function QRGeneratorClient() {
 
     const link = document.createElement('a')
     link.href = qrImageUrl
-    link.download = `khqr-${qrResult?.md5}.png`
+    link.download = `khqr-${qrResult?.md5}.svg`
     link.click()
     toast.success('QR Code downloaded!')
   }

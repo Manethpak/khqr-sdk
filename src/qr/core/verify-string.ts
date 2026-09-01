@@ -1,7 +1,7 @@
-import { error } from '@/qr/helper/errors'
-import { calculateCRC16 } from '@/qr/helper/crc'
-import { ValidationResult, validators } from '@/qr/helper/validator'
-import { failed, Result, success } from '@/qr/helper/result'
+import { error } from '../helper/errors'
+import { calculateCRC16 } from '../helper/crc'
+import { ValidationResult, validators } from '../helper/validator'
+import { failed, Result, success } from '../helper/result'
 
 import { decodeKHQR } from './decode'
 

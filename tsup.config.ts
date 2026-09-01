@@ -6,6 +6,7 @@ export default defineConfig({
     'types/index': './src/qr/types/index.ts',
     'constants/index': './src/qr/constants/index.ts',
     'helper/index': './src/qr/helper/index.ts',
+    'svg/index': './src/svg/index.ts',
   },
   format: ['esm', 'cjs'],
   dts: true,
@@ -13,4 +14,8 @@ export default defineConfig({
   splitting: false,
   sourcemap: false,
   minify: false,
+  loader: {
+    '.png': 'dataurl',
+    '.svg': 'text',
+  },
 })

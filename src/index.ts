@@ -1,5 +1,6 @@
 import { qr } from './qr'
 import createFetch, { type FetchOption } from './fetch/create-fetch'
+import { svg } from './svg'
 
 /**
  * Create KHQR SDK instance
@@ -32,5 +33,6 @@ export const createKHQR = (fetchOption: FetchOption) => {
   return {
     api: createFetch(fetchOption),
     qr,
+    svg,
   }
 }
