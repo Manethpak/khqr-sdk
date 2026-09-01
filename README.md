@@ -14,6 +14,7 @@ TypeScript SDK for generating, decoding, and validating KHQR (Cambodia's Bakong 
 - 🔒 **EMV Compliant**: Follows EMV QR Code specification standards
 - 🏦 **Bakong API Integration**: Ready-to-use, type-safe Bakong API client
 - ✅ **QR Generation**: Generate static and dynamic KHQR codes
+- 🖼️ **SVG Rendering**: Render KHQR payloads as portable payment banners
 - 🔍 **QR Validation**: Decode and verify KHQR strings with CRC integrity checks
 - 📦 **Support**: ESM and CommonJS exports
 
@@ -97,6 +98,34 @@ if (!verification.error && verification.result?.isValid) {
 } else {
   console.error('Validation errors:', verification.result?.errors)
 }
+```
+
+### SVG Rendering
+
+Render a validated KHQR payload as a self-contained SVG payment banner. The standalone subpath is browser-safe, DOM-independent, and can also be used during server-side rendering.
+
+```typescript
+import {
+  generateKHQRSVG,
+  svgToDataURI,
+} from '@manethpak/khqr-sdk/svg'
+
+if (dynamicQR.result) {
+  const rendered = generateKHQRSVG(dynamicQR.result.qr)
+
+  if (rendered.result) {
+    const imageSource = svgToDataURI(rendered.result)
+    console.log(imageSource) // Use as an <img src> value
+  }
+}
+```
+
+The renderer reads the merchant name, amount, and currency from the KHQR payload. Static payloads are supported and omit the amount line.
+
+It is also available on an initialized SDK instance:
+
+```typescript
+const rendered = khqr.svg.generateKHQRSVG(qrString)
 ```
 
 ### Bakong API Integration
@@ -241,6 +270,9 @@ import { EMV_TAGS, CURRENCY_CODES } from '@manethpak/khqr-sdk/constants'
 
 // Helper utilities
 import { validators, calculateCRC16 } from '@manethpak/khqr-sdk/helper'
+
+// SVG renderer
+import { generateKHQRSVG, svgToDataURI } from '@manethpak/khqr-sdk/svg'
 
 // Type definitions
 import type {
@@ -416,6 +448,12 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## Support
 
 If you encounter any issues or have questions, please [open an issue](https://github.com/manethpak/khqr-sdk/issues) on GitHub.
+
+### Make a donation
+
+Support me with a small donation, your support is appreciated!
+
+<img src="/api/render/00020101021129270015maneth_pak@aclb0204aclb5204599953031165802KH5910Pak%20Maneth6010Phnom%20Penh62160212+855934423856304D57B.svg" alt="Donate" />
 
 ---
 

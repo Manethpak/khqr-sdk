@@ -16,6 +16,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
+      "@manethpak/khqr-sdk/svg": ["../src/svg/index.ts"],
       "@/*": ["./src/*"]
     }
   },

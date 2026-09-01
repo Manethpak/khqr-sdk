@@ -76,8 +76,6 @@ button, input, select { font: inherit; }
 .ticket-top, .ticket-foot { display: flex; justify-content: space-between; padding: 13px 16px; color: var(--muted); border-bottom: 1px solid var(--line); font: 9px 'IBM Plex Mono', monospace; }
 .live-mark i { display: inline-block; width: 6px; height: 6px; margin-right: 6px; border-radius: 50%; background: var(--primary); }
 .ticket-body { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center; padding: 26px; }
-.qr-motif { aspect-ratio: 1; padding: 8px; display: grid; grid-template-columns: repeat(9,1fr); gap: 3px; background: white; border: 1px solid var(--line-strong); }
-.qr-motif i.filled { background: var(--ink); }
 .receipt-data { display: flex; flex-direction: column; }
 .receipt-data small { margin: 14px 0 2px; color: var(--muted); font: 9px 'IBM Plex Mono', monospace; }
 .receipt-data small:first-child { margin-top: 0; }
