@@ -12,7 +12,7 @@ TypeScript SDK for generating, decoding, and validating KHQR (Cambodia's Bakong 
 
 - 🎯 **Type-Safe**: Full TypeScript support with comprehensive type definitions
 - 🔒 **EMV Compliant**: Follows EMV QR Code specification standards
-- 🏦 **Bakong API Integration**: Ready-to-use Bakong API client with Zod validation
+- 🏦 **Bakong API Integration**: Ready-to-use, type-safe Bakong API client
 - ✅ **QR Generation**: Generate static and dynamic KHQR codes
 - 🔍 **QR Validation**: Decode and verify KHQR strings with CRC integrity checks
 - 📦 **Support**: ESM and CommonJS exports
@@ -41,10 +41,7 @@ import { createKHQR } from '@manethpak/khqr-sdk'
 // Initialize the SDK
 const khqr = createKHQR({
   baseURL: 'https://api-bakong.nbc.gov.kh',
-  auth: {
-    type: 'Bearer',
-    token: 'your_bakong_api_token',
-  },
+  authToken: 'your_bakong_api_token',
 })
 
 // Generate a static QR code (no amount)
@@ -67,6 +64,7 @@ const dynamicQR = khqr.qr.generateKHQR({
   merchantCity: 'Phnom Penh',
   amount: 10000,
   currency: 'KHR',
+  expirationTimestamp: Date.now() + 3600000, // 1 hour from now
 })
 
 if (!dynamicQR.error) {
@@ -104,35 +102,29 @@ if (!verification.error && verification.result?.isValid) {
 ### Bakong API Integration
 
 ```typescript
-// Check Bakong account
-const { data, error } = await khqr.$fetch('/v1/check_bakong_account', {
-  body: {
-    accountId: 'user@bank',
-  },
-})
+// Check Bakong account. The method name matches the current public API.
+const account = await khqr.api.check_backong_account('user@bank')
 
-if (!error) {
-  console.log('Account Info:', data)
+if (account.responseCode === 0) {
+  console.log('Account exists')
 }
 
-// Check transaction by MD5
-const transaction = await khqr.$fetch('/v1/check_transaction_by_md5', {
-  body: {
-    md5: staticQR.result?.md5,
-  },
-})
+if (staticQR.result) {
+  // Check transaction by MD5
+  const transaction = await khqr.api.check_transaction_by_md5(
+    staticQR.result.md5
+  )
 
-// Generate deeplink for mobile apps
-const deeplink = await khqr.$fetch('/v1/generate_deeplink_by_qr', {
-  body: {
-    qr: staticQR.result?.qr,
+  // Generate deeplink for mobile apps
+  const deeplink = await khqr.api.generate_deeplink({
+    qr: staticQR.result.qr,
     sourceInfo: {
       appIconUrl: 'https://example.com/icon.png',
       appName: 'My Payment App',
       appDeepLinkCallback: 'myapp://payment/callback',
     },
-  },
-})
+  })
+}
 ```
 
 ## API Reference
@@ -152,12 +144,12 @@ const info: IndividualInfo = {
   merchantCity: 'Phnom Penh',
   currency: 'KHR',
   amount: 50000,
-  billNumber?: 'INV-001',
-  mobileNumber?: '+85512345678',
-  storeLabel?: 'Main Store',
-  terminalLabel?: 'POS-01',
-  purposeOfTransaction?: 'Payment for goods',
-  expirationTimestamp?: Date.now() + 3600000 // 1 hour from now
+  billNumber: 'INV-001',
+  mobileNumber: '+85512345678',
+  storeLabel: 'Main Store',
+  terminalLabel: 'POS-01',
+  purposeOfTransaction: 'Payment for goods',
+  expirationTimestamp: Date.now() + 3600000, // 1 hour from now
 }
 ```
 
@@ -173,6 +165,7 @@ const info: MerchantInfo = {
   currency: 'USD',
   amount: 25.99,
   merchantCategoryCode: '5411', // Grocery stores
+  expirationTimestamp: Date.now() + 3600000,
 }
 ```
 
@@ -228,7 +221,7 @@ The SDK automatically detects QR code types based on input:
 
 - Point of Initiation Method = "12"
 - Fixed amount in QR code
-- Optional expiration timestamp
+- Required expiration timestamp
 
 **Individual vs Merchant**:
 
@@ -255,6 +248,8 @@ import type {
   MerchantInfo,
   QRResult,
 } from '@manethpak/khqr-sdk/types'
+
+import type { Result } from '@manethpak/khqr-sdk/helper'
 ```
 
 ## Error Handling
@@ -278,14 +273,14 @@ if (result.error) {
 ### Error Codes
 
 ```typescript
-{
-  INVALID_QR: 'Invalid QR code format',
-  INVALID_AMOUNT: 'Invalid amount for currency',
-  INVALID_ACCOUNT: 'Invalid account information',
-  REQUIRED_FIELD: 'Required field missing',
-  INVALID_FORMAT: 'Invalid format',
-  CRC_INVALID: 'CRC checksum is invalid'
-}
+import { ERROR_CODES } from '@manethpak/khqr-sdk/helper'
+
+ERROR_CODES.INVALID_QR
+ERROR_CODES.INVALID_AMOUNT
+ERROR_CODES.INVALID_ACCOUNT
+ERROR_CODES.REQUIRED_FIELD
+ERROR_CODES.INVALID_FORMAT
+ERROR_CODES.CRC_INVALID
 ```
 
 ## Advanced Usage
@@ -342,19 +337,17 @@ import type {
   QRResult,
   DecodedKHQRData,
   CurrencyType,
-  Result,
 } from '@manethpak/khqr-sdk/types'
+import type { Result } from '@manethpak/khqr-sdk/helper'
 
 // Strongly typed API responses
-const response = await khqr.$fetch('/v1/check_bakong_account', {
-  body: { accountId: 'user@bank' },
-})
-// response.data is fully typed based on the endpoint
+const response = await khqr.api.check_backong_account('user@bank')
+// response is typed as CheckBakongAccountResponse
 ```
 
 ## Examples
 
-Check out the `/example` directory for a complete Hono.js server integration:
+Check out the `/example` directory for a complete Astro server integration:
 
 ```bash
 cd example
@@ -388,12 +381,18 @@ pnpm format
 
 The SDK includes type-safe wrappers for all Bakong API endpoints:
 
-- `/v1/renew_token` - Refresh authentication token
-- `/v1/generate_deeplink_by_qr` - Generate mobile app deeplinks
-- `/v1/check_transaction_by_md5` - Check transaction by MD5 hash
-- `/v1/check_transaction_by_hash` - Check transaction by hash
-- `/v1/check_transaction_by_short_hash` - Check transaction by short hash
-- `/v1/check_bakong_account` - Verify Bakong account existence
+- `renew_token(email)` - Refresh authentication token
+- `generate_deeplink(input)` - Generate mobile app deeplinks
+- `check_transaction_by_md5(md5)` - Check transaction by MD5 hash
+- `check_transaction_by_hash(hash)` - Check transaction by hash
+- `check_transaction_by_short_hash(input)` - Check transaction by short hash
+- `check_transaction_by_instruction_ref(instructionRef)` - Check by instruction reference
+- `check_transaction_by_external_ref(externalRef)` - Check by external reference
+- `check_transaction_by_md5_list(md5List)` - Check multiple MD5 hashes
+- `check_transaction_by_hash_list(hashList)` - Check multiple hashes
+- `check_backong_account(accountId)` - Verify Bakong account existence
+
+These methods are available on `khqr.api`.
 
 ## Requirements
 

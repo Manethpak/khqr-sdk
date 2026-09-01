@@ -125,7 +125,7 @@ export default function QRGeneratorClient() {
     } else {
       setFormData({
         bakongAccountID: 'restaurant@aclb',
-        merchantName: 'Thai Restaurant',
+        merchantName: 'Boba Tea',
         merchantCity: 'Phnom Penh',
         currency: 'USD',
         amount: '25.50',

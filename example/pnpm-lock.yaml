@@ -11,6 +11,9 @@ importers:
       '@astrojs/check':
         specifier: ^0.9.6
         version: 0.9.6(prettier@3.7.4)(typescript@5.9.3)
+      '@astrojs/markdown-remark':
+        specifier: ^6.3.10
+        version: 6.3.10
       '@astrojs/react':
         specifier: ^4.4.2
         version: 4.4.2(@types/node@22.19.2)(@types/react-dom@18.3.7(@types/react@18.3.27))(@types/react@18.3.27)(jiti@2.6.1)(lightningcss@1.30.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tsx@4.21.0)(yaml@2.8.2)
