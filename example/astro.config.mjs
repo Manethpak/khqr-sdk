@@ -23,6 +23,7 @@ export default defineConfig({
         '@manethpak/khqr-sdk/svg': fileURLToPath(
           new URL('../src/svg/index.ts', import.meta.url)
         ),
+        qrcode: fileURLToPath(import.meta.resolve('qrcode')),
       },
     },
   },
